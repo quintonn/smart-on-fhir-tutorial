@@ -24,14 +24,27 @@
                       }
                     }
                   });
+        var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
 
-        $.when(pt, obv).fail(onError);
+        $.when(pt, obv, obvAll).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, obvAll).done(function(patient, obv, obvAll) {
 
           console.log('got all info');
           console.log(patient);
           console.log(obv);
+          console.log(obvAll);
+
+          var observationTable = $("allObservations");
+          observationTable.empty();
+          obvAll.forEach(function(observation) 
+          {
+              var code = observation.code[0].text;
+              var value = getObsValue(observation);
+              observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+
+
+          });
 
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -79,6 +92,38 @@
     return ret.promise();
 
   };
+
+  function getObsValue(obs)
+  {
+    if (typeof obs != 'undefined')
+    {
+       if (typeof obs.valueQuantity != 'undefined' && typeof obs.valueQuantity.value != 'undefined' && typeof obs.valueQuantity.unit != 'undefined')
+       {
+          return obs.valueQuantity.value + ' ' + obs.valueQuantity.unit;
+       }
+
+       if (typeof obs.valueCodeableConcept != 'undefined' && typeof obs.valueCodeableConcept.text != 'undefined')
+       {
+          return obs.valueCodeableConcept.text;
+       }
+       if (typeof obs.valueString != 'undefined')
+       {
+          return obs.valueString;
+       }
+       if (typeof obs.valueBoolean != 'undefined')
+       {
+          return obs.valueBoolean;
+       }
+       if (typeof obs.valueInteger != 'undefined')
+       {
+          return obs.valueInteger;
+       }
+       console.log('observation value is unhandled at this time:');
+       console.log(obs);
+    } 
+
+      return "";
+  }
 
   function defaultPatient(){
     return {
