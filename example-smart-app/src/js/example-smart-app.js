@@ -9,8 +9,10 @@
     console.log(code);
     var end = code.indexOf("&");
     console.log(end);
+
     code = code.substring(0, end);
     console.log(code);
+    
     code = Base64.decode(code);
     console.log(code);
     
