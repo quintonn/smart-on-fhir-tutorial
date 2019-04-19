@@ -37,7 +37,6 @@
 
           var observationTable = $("allObservations");
           observationTable.empty();
-          
           obvAll.forEach(function(observation) 
           {
               if (typeof observation.code != 'undefined' && observation.code.length > 0)
