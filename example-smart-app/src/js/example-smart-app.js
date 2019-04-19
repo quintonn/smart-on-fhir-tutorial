@@ -76,6 +76,27 @@
         console.log(smart);
         console.log(smart.encounter);
 
+        var allergies = smart.patient.api.fetchAll({type: "AllergyIntolerance"});
+
+        $.when(allergies).fail(onError);
+
+        $.when(allergies).done(function(allergies) 
+        {
+            console.log('got allergies');
+            console.log(allergies);
+
+            var allergyTable = $("#allAllergies");
+            allergyTable.empty();
+
+            /*allergies.forEach(function(allergy)
+            {
+
+            });*/
+
+        });
+
+          console.log('got all observations & encounters');
+
         var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
         var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
         //var encAll = smart.patient.api.search({type: 'Encounter'});
