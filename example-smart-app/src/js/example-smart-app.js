@@ -5,7 +5,8 @@
     var codeIndex = window.location.href.indexOf('code=');
     var code = window.location.href.substring(codeIndex+5);
     console.log(code);
-    var end = code.substring("&");
+    var end = code.indexOf("&");
+    console.log(end);
     code = code.substring(0, end);
     console.log(code);
     code = window.atob(code);
