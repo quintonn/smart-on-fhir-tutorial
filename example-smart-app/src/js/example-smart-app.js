@@ -29,37 +29,13 @@
 
         $.when(pt, obv, obvAll).fail(onError);
 
-        $.when(pt, obv, obvAll).done(function(patient, obv, obvAll) {
+        $.when(obvAll).fail(onError);
+
+        $.when(pt, obv).done(function(patient, obv) {
 
           console.log('got all info');
           console.log(patient);
           console.log(obv);
-          console.log(obvAll);
-
-          var observationTable = $("#allObservations");
-          observationTable.empty();
-
-          observationTable.append("<tr><th>Name:</th><td>Value</td></tr>");
-
-          obvAll.forEach(function(observation) 
-          {
-              if (typeof observation.code != 'undefined' && observation.code != null)
-              {
-                //var code = observation.code.text;
-                var obsData = getObsValue(observation);
-                obsData.forEach(function(item)
-                {
-                  observationTable.append("<tr><th>"+item.code+":</th><td>"+item.value+"</td></tr>");
-              });
-              }
-              else
-              {
-                console.log('observation has no codes');
-                console.log(typeof observation.code);
-                console.log(observation.code);
-                console.log(observation);
-              }
-          });
 
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
@@ -98,6 +74,44 @@
 
           ret.resolve(p);
         });
+
+        $.when(obvAll).done(function(obvAll) {
+
+          console.log('got all observation');
+          console.log(obvAll);
+
+          var observationTable = $("#allObservations");
+          observationTable.empty();
+
+          observationTable.append("<tr><th>Name:</th><td>Value</td></tr>");
+
+          obvAll.forEach(function(observation) 
+          {
+              if (typeof observation.code != 'undefined' && observation.code != null)
+              {
+                //var code = observation.code.text;
+                var encounter = "";
+                if (typeof observation.encounter != "undefined")
+                {
+                  encounter = observation.encounter.reference;
+                }
+                var obsData = getObsValue(observation, encounter);
+                obsData.forEach(function(item)
+                {
+                  observationTable.append("<tr><th>"+item.code+":</th><td>"+item.value+"</td><td>"+item.encounter+"</td></tr>");
+              });
+              }
+              else
+              {
+                console.log('observation has no codes');
+                console.log(typeof observation.code);
+                console.log(observation.code);
+                console.log(observation);
+              }
+          });
+        });
+
+
       } else {
         onError();
       }
@@ -108,7 +122,7 @@
 
   };
 
-  function getObsValue(obs)
+  function getObsValue(obs, encounter)
   {
     var results = [];
 
@@ -121,28 +135,28 @@
           {
             result = result + ' ' + obs.valueQuantity.unit;
           }
-          results.push({code: obs.code.text, value: result});
+          results.push({code: obs.code.text, value: result, encounter: encounter});
        }
        else if (typeof obs.valueCodeableConcept != 'undefined' && typeof obs.valueCodeableConcept.text != 'undefined')
        {
-          results.push({code: obs.code.text, value: obs.valueCodeableConcept.text});
+          results.push({code: obs.code.text, value: obs.valueCodeableConcept.text, encounter: encounter});
           
        }
        else if (typeof obs.valueString != 'undefined')
        {
-        results.push({code: obs.code.text, value: obs.valueString});
+        results.push({code: obs.code.text, value: obs.valueString, encounter: encounter});
        }
        else if (typeof obs.valueBoolean != 'undefined')
        {
-          results.push({code: obs.code.text, value: obs.valueBoolean});
+          results.push({code: obs.code.text, value: obs.valueBoolean, encounter: encounter});
        }
        else if (typeof obs.valueInteger != 'undefined')
        {
-          results.push({code: obs.code.text, value: obs.valueInteger});
+          results.push({code: obs.code.text, value: obs.valueInteger, encounter: encounter});
        }
        else if (typeof obs.valueDateTime != 'undefined')
        {
-          results.push({code: obs.code.text, value: obs.valueDateTime});
+          results.push({code: obs.code.text, value: obs.valueDateTime, encounter: encounter});
        }
        else if (typeof obs.component != 'undefined' && obs.component.length > 0)
        {
@@ -150,7 +164,7 @@
           console.log(obs);
           obs.component.forEach(function(comp)
           {
-              var items = getObsValue(comp);
+              var items = getObsValue(comp, encounter);
               items.forEach(function(tmp)
               {
                 results.push(tmp);
