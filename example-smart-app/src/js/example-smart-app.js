@@ -1,6 +1,17 @@
 (function(window){
   window.extractData = function() {
     console.log('extract data');
+
+    var codeIndex = window.location.href.indexOf('code=');
+    var code = window.location.href.substring(codeIndex+5);
+    console.log(code);
+    var end = code.substring("&");
+    code = code.substring(0, end);
+    console.log(code);
+    code = window.atob(code);
+    console.log(code);
+    
+
     console.log(window.location.href);
     var ret = $.Deferred();
 
