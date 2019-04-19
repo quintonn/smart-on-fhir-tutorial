@@ -86,7 +86,7 @@
             console.log('got all allergies');
             console.log(allergies);
 
-            var allergyTable = $("#");
+            var allergyTable = $("#allAllergies");
             allergyTable.empty();
 
             allergies.forEach(function(allergy)
