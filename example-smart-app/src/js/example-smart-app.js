@@ -1,5 +1,6 @@
 (function(window){
   window.extractData = function() {
+    console.log('extract data');
     var ret = $.Deferred();
 
     function onError() {
@@ -11,6 +12,8 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
+        console.log('patient');
+        console.log(pt);
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -25,6 +28,11 @@
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
+
+          console.log('got all info');
+          console.log(patient);
+          console.log(obv);
+
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
