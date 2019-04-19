@@ -92,7 +92,15 @@
             allergies.forEach(function(allergy)
             {
                 var category = allergy.category;
-                var substance = allergy.substance.text;
+                var substance = "";
+                if (typeof allergy.substance.text != "undefined")
+                {
+                   substance = allergy.substance.text;
+                }
+                else
+                {
+                  substance = allergy.substance.coding[0].display;
+                }
                 var status = allergy.status;
                 allergyTable.append("<tr><th>Allergy: "+substance+" </th><td>"+status+" ("+category+")</td></tr>");
             });
