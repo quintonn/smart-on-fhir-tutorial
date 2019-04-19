@@ -3,7 +3,8 @@
     console.log('extract data');
     var ret = $.Deferred();
 
-    function onError() {
+    function onError(e) {
+      console.log(e);
       console.log('Loading error', arguments);
       ret.reject();
     }
@@ -74,7 +75,7 @@
         });
 
         console.log(smart);
-        console.log(smart.encounter);
+        //console.log(smart.encounter);
 
         var allergies = smart.patient.api.fetchAll({type: "AllergyIntolerance"});
 
