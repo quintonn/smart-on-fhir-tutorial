@@ -11,9 +11,9 @@
     function onReady(smart)  {
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
+        console.log('reading patient');
         var pt = patient.read();
-        console.log('patient');
-        console.log(pt);
+        console.log('reading observations 1');
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -24,6 +24,7 @@
                       }
                     }
                   });
+        console.log('reading observations 2');
         var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
 
         $.when(pt, obv, obvAll).fail(onError);
@@ -38,13 +39,16 @@
           var observationTable = $("allObservations");
           observationTable.empty();
 
+          observationTable.append("<tr><th>Name:</th><td>Value</td></tr>");
+
           obvAll.forEach(function(observation) 
           {
               if (typeof observation.code != 'undefined' && observation.code != null)
               {
                 var code = observation.code.text;
                 var value = getObsValue(observation);
-                observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+                console.log('adding value to table');
+                $("allObservations").append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
               }
               else
               {
@@ -108,9 +112,14 @@
   {
     if (typeof obs != 'undefined')
     {
-       if (typeof obs.valueQuantity != 'undefined' && typeof obs.valueQuantity.value != 'undefined' && typeof obs.valueQuantity.unit != 'undefined')
+       if (typeof obs.valueQuantity != 'undefined' && typeof obs.valueQuantity.value != 'undefined')
        {
-          return obs.valueQuantity.value + ' ' + obs.valueQuantity.unit;
+          var result = obs.valueQuantity.value;
+          if (typeof obs.valueQuantity.unit != 'undefined')
+          {
+            result = result + ' ' + obs.valueQuantity.unit;
+          }
+          return result;
        }
 
        if (typeof obs.valueCodeableConcept != 'undefined' && typeof obs.valueCodeableConcept.text != 'undefined')
@@ -128,6 +137,10 @@
        if (typeof obs.valueInteger != 'undefined')
        {
           return obs.valueInteger;
+       }
+       if (typeof obs.valueDateTime != 'undefined')
+       {
+          return obs.valueDateTime;
        }
        console.log('observation value is unhandled at this time:');
        console.log(obs);
