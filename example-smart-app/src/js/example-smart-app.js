@@ -2,6 +2,8 @@
   window.extractData = function() {
     console.log('extract data');
 
+    console.log(window.location.href);
+
     var codeIndex = window.location.href.indexOf('code=');
     var code = window.location.href.substring(codeIndex+5);
     console.log(code);
@@ -9,11 +11,9 @@
     console.log(end);
     code = code.substring(0, end);
     console.log(code);
-    code = window.atob(code);
+    code = Base64.decode(code);
     console.log(code);
     
-
-    console.log(window.location.href);
     var ret = $.Deferred();
 
     function onError(e) {
