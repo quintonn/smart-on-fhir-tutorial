@@ -6,7 +6,7 @@
     function onError(e) {
       console.log(e);
       console.log('Loading error', arguments);
-      ret.reject();
+      //ret.reject();
     }
 
     function onReady(smart)  {
