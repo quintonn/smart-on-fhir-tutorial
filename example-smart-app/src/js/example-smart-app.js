@@ -25,11 +25,8 @@
                     }
                   });
         console.log('reading observations 2');
-        var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
 
         $.when(pt, obv, obvAll).fail(onError);
-
-        $.when(obvAll).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
 
@@ -75,15 +72,28 @@
           ret.resolve(p);
         });
 
-        $.when(obvAll).done(function(obvAll) {
+        var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
+        var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
 
-          console.log('got all observation');
+        $.when(obvAll, encAll).fail(onError);
+
+        $.when(obvAll, encAll).done(function(obvAll, encAll) {
+
+          console.log('got all observations & encounters');
           console.log(obvAll);
+
+          console.log(encAll);
 
           var observationTable = $("#allObservations");
           observationTable.empty();
 
-          observationTable.append("<tr><th>Name:</th><td>Value</td></tr>");
+          var encounterTable = $("#allEncounter");
+          encounterTable.empty();
+
+          encAll.forEach(function(encounter)
+          {
+            encounterTable.append("<tr><th>Encounter: "+encounter.id+" </th><td>"+encounter.status+"</td></tr>");
+          });
 
           obvAll.forEach(function(observation) 
           {
