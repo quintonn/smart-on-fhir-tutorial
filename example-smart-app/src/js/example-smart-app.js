@@ -39,7 +39,7 @@
           observationTable.empty();
           obvAll.forEach(function(observation) 
           {
-              if (typeof observation.code != 'undefined' && obsrvaton.code.length > 0)
+              if (typeof observation.code != 'undefined' && observation.code.length > 0)
               {
                 var code = observation.code[0].text;
                 var value = getObsValue(observation);
