@@ -83,16 +83,19 @@
 
         $.when(allergies).done(function(allergies) 
         {
-            console.log('got allergallAllergiesies');
+            console.log('got all allergies');
             console.log(allergies);
 
             var allergyTable = $("#");
             allergyTable.empty();
 
-            /*allergies.forEach(function(allergy)
+            allergies.forEach(function(allergy)
             {
-
-            });*/
+                var category = allergy.category;
+                var substance = allergy.substance.text;
+                var status = allergy.status;
+                allergyTable.append("<tr><th>Allergy: "+substance+" </th><td>"+status+" ("+category+")</td></tr>");
+            });
 
         });
 
@@ -121,7 +124,7 @@
 
           encAll.forEach(function(encounter)
           {
-            encounterTable.append("<tr><th>Encounter: "+encounter.id+" </th><td>"+encounter.status+"</td></tr>");
+             encounterTable.append("<tr><th>Encounter: "+encounter.id+" </th><td>"+encounter.status+"</td></tr>");
           });
 
           obvAll.forEach(function(observation) 
