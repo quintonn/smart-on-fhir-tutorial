@@ -37,7 +37,7 @@
 
           var observationTable = $("allObservations");
           observationTable.empty();
-          
+
           obvAll.forEach(function(observation) 
           {
               if (typeof observation.code != 'undefined' && observation.code.length > 0)
@@ -49,6 +49,8 @@
               else
               {
                 console.log('observation has no codes');
+                console.log(typeof observation.code);
+                console.log(observation.code);
                 console.log(observation);
               }
 
