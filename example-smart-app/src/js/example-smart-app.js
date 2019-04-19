@@ -39,9 +39,17 @@
           observationTable.empty();
           obvAll.forEach(function(observation) 
           {
-              var code = observation.code[0].text;
-              var value = getObsValue(observation);
-              observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+              if (typeof observation.code != 'undefined' && obsrvaton.code.length > 0)
+              {
+                var code = observation.code[0].text;
+                var value = getObsValue(observation);
+                observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+              }
+              else
+              {
+                console.log('observation has no codes');
+                console.log(observation);
+              }
 
 
           });
