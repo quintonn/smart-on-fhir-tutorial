@@ -45,10 +45,12 @@
           {
               if (typeof observation.code != 'undefined' && observation.code != null)
               {
-                var code = observation.code.text;
-                var value = getObsValue(observation);
-                console.log('adding value to table');
-                observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+                //var code = observation.code.text;
+                var obsData = getObsValue(observation);
+                obsData.forEach(function(item)
+                {
+                  observationTable.append("<tr><th>"+item.code+":</th><td>"+item.value+"</td></tr>");
+              });
               }
               else
               {
@@ -57,8 +59,6 @@
                 console.log(observation.code);
                 console.log(observation);
               }
-
-
           });
 
           var byCodes = smart.byCodes(obv, 'code');
@@ -110,6 +110,8 @@
 
   function getObsValue(obs)
   {
+    var results = [];
+
     if (typeof obs != 'undefined')
     {
        if (typeof obs.valueQuantity != 'undefined' && typeof obs.valueQuantity.value != 'undefined')
@@ -119,34 +121,50 @@
           {
             result = result + ' ' + obs.valueQuantity.unit;
           }
-          return result;
+          results.push({code: obs.code.text, value: result});
        }
-
-       if (typeof obs.valueCodeableConcept != 'undefined' && typeof obs.valueCodeableConcept.text != 'undefined')
+       else if (typeof obs.valueCodeableConcept != 'undefined' && typeof obs.valueCodeableConcept.text != 'undefined')
        {
-          return obs.valueCodeableConcept.text;
+          results.push({code: obs.code.text, value: obs.valueCodeableConcept.text});
+          
        }
-       if (typeof obs.valueString != 'undefined')
+       else if (typeof obs.valueString != 'undefined')
        {
-          return obs.valueString;
+        results.push({code: obs.code.text, value: obs.valueString});
        }
-       if (typeof obs.valueBoolean != 'undefined')
+       else if (typeof obs.valueBoolean != 'undefined')
        {
-          return obs.valueBoolean;
+          results.push({code: obs.code.text, value: obs.valueBoolean});
        }
-       if (typeof obs.valueInteger != 'undefined')
+       else if (typeof obs.valueInteger != 'undefined')
        {
-          return obs.valueInteger;
+          results.push({code: obs.code.text, value: obs.valueInteger});
        }
-       if (typeof obs.valueDateTime != 'undefined')
+       else if (typeof obs.valueDateTime != 'undefined')
        {
-          return obs.valueDateTime;
+          results.push({code: obs.code.text, value: obs.valueDateTime});
        }
-       console.log('observation value is unhandled at this time:');
-       console.log(obs);
+       else if (typeof obs.component != 'undefined' && obs.component.length > 0)
+       {
+          console.log('trying to add from component');
+          console.log(obs);
+          obs.component.forEach(function(comp)
+          {
+              var items = getObsValue(comp);
+              items.forEach(function(tmp)
+              {
+                results.push(tmp);
+              });
+          });
+       }
+       else 
+       {
+        console.log('observation value is unhandled at this time:');
+        console.log(obs);
+      }
     } 
 
-      return "";
+      return results;
   }
 
   function defaultPatient(){
