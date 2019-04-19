@@ -36,7 +36,7 @@
           console.log(obv);
           console.log(obvAll);
 
-          var observationTable = $("allObservations");
+          var observationTable = $("#allObservations");
           observationTable.empty();
 
           observationTable.append("<tr><th>Name:</th><td>Value</td></tr>");
@@ -48,7 +48,7 @@
                 var code = observation.code.text;
                 var value = getObsValue(observation);
                 console.log('adding value to table');
-                $("allObservations").append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
+                observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
               }
               else
               {
