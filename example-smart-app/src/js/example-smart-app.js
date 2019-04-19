@@ -12,6 +12,7 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         console.log('reading patient');
+        var usr = smart.user.read();
         var pt = patient.read();
         console.log('reading observations 1');
         var obv = smart.patient.api.fetchAll({
@@ -26,7 +27,7 @@
                   });
         console.log('reading observations 2');
 
-        $.when(pt, obv, obvAll).fail(onError);
+        $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
 
@@ -75,11 +76,14 @@
         var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
         var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
 
-        $.when(obvAll, encAll).fail(onError);
+        $.when(obvAll, encAll, usr).fail(onError);
 
-        $.when(obvAll, encAll).done(function(obvAll, encAll) {
+        $.when(obvAll, encAll, usr).done(function(obvAll, encAll, usr) {
 
           console.log('got all observations & encounters');
+
+          console.log(usr);
+
           console.log(obvAll);
 
           console.log(encAll);
