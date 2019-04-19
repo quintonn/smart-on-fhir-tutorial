@@ -2,8 +2,9 @@
   window.extractData = function() {
     console.log('extract data');
 
+try
+{
     console.log(window.location.href);
-
     var codeIndex = window.location.href.indexOf('code=');
     var code = window.location.href.substring(codeIndex+5);
     console.log(code);
@@ -12,9 +13,18 @@
 
     code = code.substring(0, end);
     console.log(code);
-    
+
     code = Base64.decode(code);
     console.log(code);
+
+    var json = JSON.parse(code);
+    var encounterId = json.context.encounter;
+    console.log(encounterId);
+}
+catch (err)
+{
+  console.log(err);
+}
     
     var ret = $.Deferred();
 
