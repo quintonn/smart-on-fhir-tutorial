@@ -40,9 +40,9 @@
 
           obvAll.forEach(function(observation) 
           {
-              if (typeof observation.code != 'undefined' && observation.code.length > 0)
+              if (typeof observation.code != 'undefined' && observation.code != null)
               {
-                var code = observation.code[0].text;
+                var code = observation.code.text;
                 var value = getObsValue(observation);
                 observationTable.append("<tr><th>"+code+":</th><td>"+value+"</td></tr>");
               }
