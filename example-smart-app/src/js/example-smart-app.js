@@ -73,9 +73,12 @@
           ret.resolve(p);
         });
 
+        console.log(smart);
+        console.log(smart.encounter);
+
         var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
-        //var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
-        var encAll = smart.patient.api.search({type: 'Encounter'});
+        var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
+        //var encAll = smart.patient.api.search({type: 'Encounter'});
 
         $.when(obvAll, encAll, usr).fail(onError);
 
