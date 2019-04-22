@@ -17,11 +17,10 @@ try
     code = Base64.decode(code);
     console.log(code);
 
-    var rex = new RegExp("{.*}");
+    var rex = new RegExp('encounter.*?(}|,)');
     var json = rex.exec(code);
-
     json = json[0];
-
+    
     console.log(json);
     json = JSON.parse(json);
 
