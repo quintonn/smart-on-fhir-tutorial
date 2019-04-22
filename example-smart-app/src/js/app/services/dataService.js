@@ -36,19 +36,18 @@
 
             var patient = self.smart.patient.read();
 
-            var result = $.Deferred();
-
-            $.when(patient).fail(function (e)
+            return new Promise(function (res, rej)
             {
-                result.reject(e);
-            });
+                $.when(patient).fail(function (e)
+                {
+                    rej(e);
+                });
 
-            $.when(patient).done(function (patient)
-            {
-                result.resolve(patient);
+                $.when(patient).done(function (patient)
+                {
+                    res(patient);
+                });
             });
-
-            return result.promise();
         }
 
         function onReady(smart)
