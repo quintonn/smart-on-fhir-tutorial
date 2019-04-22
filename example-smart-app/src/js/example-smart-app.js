@@ -18,7 +18,7 @@ try
     console.log(code);
 
     var rex = new RegExp("{.*}");
-    var json = rex.exec();
+    var json = rex.exec(code);
 
     console.log(json);
     json = JSON.parse(json);
