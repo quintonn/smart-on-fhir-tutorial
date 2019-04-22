@@ -113,15 +113,15 @@
         var obvAll = smart.patient.api.fetchAll({type: 'Observation'});
         var encAll = smart.patient.api.fetchAll({type: 'Encounter'});
         //var encAll = smart.patient.api.search({type: 'Encounter'});
-        //var usr = smart.user.read();
+        var usr = smart.user.read();
 
-        $.when(obvAll, encAll).fail(onError);
+        $.when(obvAll, encAll, usr).fail(onError);
 
-        $.when(obvAll, encAll).done(function(obvAll, encAll) {
+        $.when(obvAll, encAll, usr).done(function(obvAll, encAll, usr) {
 
-          console.log('got all observations & encounters');
+          console.log('got all observations & encounters & user');
 
-          //console.log(usr);
+          console.log(usr);
 
           console.log(obvAll);
 
