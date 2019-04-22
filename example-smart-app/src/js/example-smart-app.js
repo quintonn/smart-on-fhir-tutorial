@@ -17,7 +17,14 @@ try
     code = Base64.decode(code);
     console.log(code);
 
-    var json = JSON.parse(code);
+    var rex = new RegExp("{.*}");
+    var json = rex.exec();
+
+    console.log(json);
+    json = JSON.parse(json);
+
+    console.log(json);
+
     var encounterId = json.context.encounter;
     console.log(encounterId);
 }
