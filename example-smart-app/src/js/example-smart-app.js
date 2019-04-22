@@ -20,6 +20,8 @@ try
     var rex = new RegExp("{.*}");
     var json = rex.exec(code);
 
+    json = json[0];
+
     console.log(json);
     json = JSON.parse(json);
 
