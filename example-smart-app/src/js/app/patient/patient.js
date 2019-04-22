@@ -26,7 +26,7 @@
                 self.gender = data.gender;
                 self.firstName = data.name[0].given.join(' ');
                 self.lastName = data.name[0].family.join(' ');
-                self.birthDate = patient.birthDate;
+                self.birthDate = data.birthDate;
 
                 self.ready = true;
             }).catch(function (err)
