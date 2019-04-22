@@ -259,7 +259,7 @@
         rex = new RegExp("(.*:)((\"|').*(\"|'))");
         matches = rex.exec(code);
         console.log(matches);
-        code = matches[1];
+        code = matches[2];
         console.log(code);
         code = code.replace(/"/g, "").replace(/'/g, "");
         console.log(code);
