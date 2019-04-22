@@ -2,37 +2,7 @@
   window.extractData = function() {
     console.log('extract data');
 
-try
-{
-    console.log(window.location.href);
-    var codeIndex = window.location.href.indexOf('code=');
-    var code = window.location.href.substring(codeIndex+5);
-    console.log(code);
-    var end = code.indexOf("&");
-    console.log(end);
-
-    code = code.substring(0, end);
-    console.log(code);
-
-    code = Base64.decode(code);
-    console.log(code);
-
-    var rex = new RegExp('encounter.*?(}|,)');
-    var json = rex.exec(code);
-    json = json[0];
-    
-    console.log(json);
-    json = JSON.parse(json);
-
-    console.log(json);
-
-    var encounterId = json.context.encounter;
-    console.log(encounterId);
-}
-catch (err)
-{
-  console.log(err);
-}
+    var encounterId = getEncounterId();
     
     var ret = $.Deferred();
 
@@ -262,6 +232,44 @@ catch (err)
     } 
 
       return results;
+  }
+
+  function getEncounterId(data)
+  {
+    try
+    {
+        console.log(window.location.href);
+        var codeIndex = window.location.href.indexOf('code=');
+        var code = window.location.href.substring(codeIndex+5);
+        console.log(code);
+        var end = code.indexOf("&");
+        console.log(end);
+
+        code = code.substring(0, end);
+        console.log(code);
+
+        code = Base64.decode(code);
+        console.log(code);
+
+        var rex = new RegExp('encounter.*?(}|,)');
+        var matches = rex.exec(code);
+        code = matches[0];
+        console.log(code);
+
+        rex = new RegExp("(.*:)((\"|').*(\"|'))");
+        matches = rex.exec(code);
+        console.log(matches);
+        code = matches[1];
+        console.log(code);
+        code = code.replace(/"/g, "").replace(/'/g, "");
+        console.log(code);
+        
+        return code;
+    }
+    catch (err)
+    {
+      console.log(err);
+    }
   }
 
   function defaultPatient(){
