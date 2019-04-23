@@ -53,7 +53,7 @@
     <div class="card-body text-center ">
         <a class="btn btn-block" ng-class="{'btn-success': $ctrl.approved, 'btn-danger': $ctrl.approved == false}" ng-click="$ctrl.approve(item)">
             <i class="fas fa-check" ng-if="$ctrl.approved == true"></i>
-            <i class="fas fa-times" ng-if="$ctrl.approved == false"></i>
+            <i class="fas fa-times" ng-if="$ctrl.approved != true"></i>
         </a>
     </div>
 </div>
