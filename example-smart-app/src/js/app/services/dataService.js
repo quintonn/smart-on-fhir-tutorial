@@ -6,7 +6,6 @@
     {
         var self = this;
         self.smart = null;
-        self.error = "";
         self.ready = false;
 
         var service =
@@ -14,14 +13,35 @@
             getPatientData: getPatientData,
             getAllergies: getAllergies,
             allergies: [],
-            test: ""
+            test: "",
+            summary: "",
+            error: "",
+            isValid: isValid,
+            patientApproved: false,
+            allApproved: allApproved,
+            allergiesApproved: false
         };
+
+        function allApproved()
+        {
+            return service.patientApproved &&
+                service.allergiesApproved;
+        }
+
+        function isValid(value)
+        {
+            if (typeof value == "undefined" || value == null || value == null || value.length == 0)
+            {
+                return false;
+            }
+            return true;
+        }
 
         function getAllergies()
         {
             service.test = "hello";
             
-            if (self.ready == false && self.error == "")
+            if (self.ready == false && service.error == "")
             {
                 return new Promise(function (res, rej)
                 {
@@ -34,9 +54,9 @@
                     }, 100);
                 });
             }
-            if (self.error != "")
+            if (service.error != "")
             {
-                return Promise.reject(self.error);
+                return Promise.reject(service.error);
             }
 
             var allergies = self.smart.patient.api.fetchAll({ type: "AllergyIntolerance" });
@@ -58,7 +78,7 @@
 
         function getPatientData()
         {
-            if (self.ready == false && self.error == "")
+            if (self.ready == false && service.error == "")
             {
                 return new Promise(function (res, rej)
                 {
@@ -71,9 +91,9 @@
                     }, 100);
                 });
             }
-            if (self.error != "")
+            if (service.error != "")
             {
-                return Promise.reject(self.error);
+                return Promise.reject(service.error);
             }
 
             var patient = self.smart.patient.read();
@@ -103,7 +123,7 @@
         function onError(e)
         {
             console.log(e);
-            self.error = e;
+            service.error = e;
             self.ready = false;
             onReady();
         }

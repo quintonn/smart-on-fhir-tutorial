@@ -3,9 +3,12 @@
         Allergies & Adverse Reactions
     </div>
 
-    <div class="card-body" ng-if="$ctrl.loading == true">
-        <div class="progress">
+    <div class="card-body text-center" ng-if="$ctrl.loading == true">
+        <!--<div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>-->
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
         <p>Loading...</p>
     </div>
@@ -13,10 +16,18 @@
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
             <div class="card" ng-repeat="item in $ctrl.getAllergies()">
-                <button class="btn btn-primary" type="button" ng-click="$ctrl.select(item)">
+                <div class="btn btn-primary" type="button" ng-click="$ctrl.expand(item)">
+
                     {{item.substance.coding[0].display}}
-                </button>
-                <div ng-if="item.selected == true" >
+
+                    <a class="float-md-right btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
+                        <i class="fas fa-check" ng-if="item.selected == true"></i>
+                        <i class="fas fa-times" ng-if="item.selected == false"></i>
+
+                        <!--<input type="checkbox" class="float-md-left" id="customCheck1" ng-click="$event.stopPropagation();" />-->
+                    </a>
+                </div>
+                <div ng-if="item.expanded == true">
                     <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-6">Substance</dt>
@@ -37,5 +48,12 @@
         <div class="alert alert-danger" role="alert">
             {{$ctrl.error}}
         </div>
+    </div>
+
+    <div class="card-body text-center ">
+        <a class="btn btn-block" ng-class="{'btn-success': $ctrl.approved, 'btn-danger': $ctrl.approved == false}" ng-click="$ctrl.approve(item)">
+            <i class="fas fa-check" ng-if="$ctrl.approved == true"></i>
+            <i class="fas fa-times" ng-if="$ctrl.approved == false"></i>
+        </a>
     </div>
 </div>

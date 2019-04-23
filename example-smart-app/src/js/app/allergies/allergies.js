@@ -11,7 +11,20 @@
         self.ready = false;
         self.error = "";
 
+        self.approved = false;
+
+        self.approve = function ()
+        {
+            self.approved = !self.approved;
+            dataService.allergiesApproved = self.approved;
+        }
+
         self.allergies = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];
+
+        self.expand = function (item)
+        {
+            item.expanded = !item.expanded;
+        }
 
         self.select = function (item)
         {

@@ -17,6 +17,14 @@
         self.birthDate = '';
         self.deathDate = '';
 
+        self.approved = false;
+
+        self.approve = function ()
+        {
+            self.approved = !self.approved;
+            dataService.patientApproved = self.approved;
+        }
+
         function loadData()
         {
             self.loading = true;

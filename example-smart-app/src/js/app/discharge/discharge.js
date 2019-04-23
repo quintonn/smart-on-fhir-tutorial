@@ -8,16 +8,38 @@
     {
         var self = this;
 
-        //self.test = function ()
-        //{
-        //    return dataService.test;
-        //}
+        self.validSummary = false;
+        self.validAllergies = false;
 
-        //setTimeout(function ()
-        //{
-        //    dataService.test = "jsdklfj";
-        //    $scope.$apply();
-        //}, 3000);
+        self.$onInit = function ()
+        {
+            $scope.$watch(function ()
+            {
+                return dataService.allergiesApproved;
+            },
+                function (newVal, oldVal)
+                {
+                    self.validAllergies = newVal;
+                });
+
+            $scope.$watch(function ()
+            {
+                return dataService.summary;
+            },
+                function (newVal, oldVal)
+                {
+                    if (dataService.isValid("") == false && // check there are no errors in dataService
+                        dataService.isValid(dataService.summary))
+                    {
+                        console.log('valid = true');
+                        self.validSummary = true;
+                    }
+                    else if (self.validSummary == true)
+                    {
+                        self.validSummary = false;
+                    }
+                });
+        }
     }
 
     app.component('discharge', {
