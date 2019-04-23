@@ -18,6 +18,11 @@
             item.selected = !item.selected;
         }
 
+        self.getAllergies = function ()
+        {
+            return dataService.allergies;
+        }
+
         function loadData()
         {
             self.loading = true;
@@ -25,7 +30,6 @@
             {
                 console.log(data);
                 self.allergies = data;
-
                 self.ready = true;
             }).catch(function (err)
             {

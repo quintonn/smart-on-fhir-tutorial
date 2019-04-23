@@ -12,11 +12,15 @@
         var service =
         {
             getPatientData: getPatientData,
-            getAllergies: getAllergies
+            getAllergies: getAllergies,
+            allergies: [],
+            test: ""
         };
 
         function getAllergies()
         {
+            service.test = "hello";
+            
             if (self.ready == false && self.error == "")
             {
                 return new Promise(function (res, rej)
@@ -46,6 +50,7 @@
 
                 $.when(allergies).done(function (allergies)
                 {
+                    service.allergies = allergies;
                     res(allergies);
                 });
             });

@@ -2,12 +2,22 @@
 {
     'use strict';
 
-    DataMenuController.$inject = ['dataService'];
+    DataMenuController.$inject = ['dataService', '$scope'];
 
-    function DataMenuController(dataService)
+    function DataMenuController(dataService, $scope)
     {
         var self = this;
-        console.log('x');
+
+        //self.test = function ()
+        //{
+        //    return dataService.test;
+        //}
+
+        //setTimeout(function ()
+        //{
+        //    dataService.test = "jsdklfj";
+        //    $scope.$apply();
+        //}, 3000);
     }
 
     app.component('discharge', {

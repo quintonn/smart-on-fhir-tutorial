@@ -1,6 +1,6 @@
 ﻿<div class="card">
     <div class="card-header">
-        Allergies
+        Allergies & Adverse Reactions
     </div>
 
     <div class="card-body" ng-if="$ctrl.loading == true">
@@ -12,19 +12,21 @@
 
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
-            <div class="card" ng-repeat="item in $ctrl.allergies">
+            <div class="card" ng-repeat="item in $ctrl.getAllergies()">
                 <button class="btn btn-primary" type="button" ng-click="$ctrl.select(item)">
-                    {{item.name}}
+                    {{item.substance.coding[0].display}}
                 </button>
                 <div ng-if="item.selected == true" >
                     <div class="card-body">
                         <dl class="row">
                             <dt class="col-sm-6">Substance</dt>
-                            <dd class="col-sm-6">{{item.substance}}</dd>
+                            <dd class="col-sm-6">{{item.substance.coding[0].display}}</dd>
                             <dt class="col-sm-6">Status</dt>
                             <dd class="col-sm-6">{{item.status}}</dd>
                             <dt class="col-sm-6">Category</dt>
                             <dd class="col-sm-6">{{item.category}}</dd>
+                            <dt class="col-sm-6">Criticality</dt>
+                            <dd class="col-sm-6">{{item.criticality}}</dd>
                         </dl>
                     </div>
                 </div>
