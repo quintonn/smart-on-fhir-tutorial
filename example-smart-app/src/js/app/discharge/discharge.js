@@ -10,6 +10,7 @@
 
         self.validSummary = false;
         self.validAllergies = false;
+        self.validPatient = false;
 
         self.$onInit = function ()
         {
@@ -20,6 +21,15 @@
                 function (newVal, oldVal)
                 {
                     self.validAllergies = newVal;
+                });
+
+            $scope.$watch(function ()
+            {
+                return dataService.patientApproved;
+            },
+                function (newVal, oldVal)
+                {
+                    self.validPatient = newVal;
                 });
 
             $scope.$watch(function ()

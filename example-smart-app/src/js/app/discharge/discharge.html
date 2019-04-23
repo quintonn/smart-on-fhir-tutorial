@@ -1,7 +1,14 @@
 ﻿<div class="row">
     <div class="col-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-allergies-tab" data-toggle="pill" href="#v-pills-allergies" role="tab" aria-controls="v-pills-home" aria-selected="true">
+            <a class="nav-link active" id="v-pills-patient-tab" data-toggle="pill" href="#v-pills-patient" role="tab" aria-controls="v-pills-patient" aria-selected="false">
+                Patient
+                <span class="badge" ng-class="{'badge-success': $ctrl.validPatient, 'badge-danger': $ctrl.validPatient == false}">
+                    <i class="fas fa-check" ng-if="$ctrl.validPatient == true"></i>
+                    <i class="fas fa-times" ng-if="$ctrl.validPatient == false"></i>
+                </span>
+            </a>
+            <a class="nav-link" id="v-pills-allergies-tab" data-toggle="pill" href="#v-pills-allergies" role="tab" aria-controls="v-pills-home" aria-selected="true">
                 Allergies & Adverse Reactions
                 <span class="badge" ng-class="{'badge-success': $ctrl.validAllergies, 'badge-danger': $ctrl.validAllergies == false}">
                     <i class="fas fa-check" ng-if="$ctrl.validAllergies == true"></i>
@@ -21,7 +28,10 @@
     </div>
     <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active p-2" id="v-pills-allergies" role="tabpanel" aria-labelledby="v-pills-allergies-tab">
+            <div class="tab-pane fade show active p-2" id="v-pills-patient" role="tabpanel" aria-labelledby="v-pills-patient-tab">
+                <patient></patient>
+            </div>
+            <div class="tab-pane fade p-2" id="v-pills-allergies" role="tabpanel" aria-labelledby="v-pills-allergies-tab">
                 <allergies></allergies>
             </div>
             <div class="tab-pane fade p-2" id="v-pills-summary" role="tabpanel" aria-labelledby="v-pills-summary-tab">
@@ -34,8 +44,8 @@
                 <h1>GP Practice</h1>
             </div>
             <!--<div class="tab-pane fade" id="v-pills-xx" role="tabpanel" aria-labelledby="v-pills-xx-tab">
-                {{$ctrl.test()}}
-            </div>-->
+        {{$ctrl.test()}}
+    </div>-->
         </div>
     </div>
 </div>
