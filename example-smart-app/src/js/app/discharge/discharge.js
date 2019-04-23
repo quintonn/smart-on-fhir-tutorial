@@ -34,20 +34,11 @@
 
             $scope.$watch(function ()
             {
-                return dataService.summary;
+                return dataService.summaryApproved;
             },
                 function (newVal, oldVal)
                 {
-                    if (dataService.isValid("") == false && // check there are no errors in dataService
-                        dataService.isValid(dataService.summary))
-                    {
-                        console.log('valid = true');
-                        self.validSummary = true;
-                    }
-                    else if (self.validSummary == true)
-                    {
-                        self.validSummary = false;
-                    }
+                    self.validSummary = newVal;
                 });
         }
     }

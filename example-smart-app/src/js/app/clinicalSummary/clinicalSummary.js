@@ -9,6 +9,22 @@
         var self = this;
 
         self.summary = "";
+        self.error = "";
+
+        self.approved = false;
+
+        self.approve = function ()
+        {
+            if (self.approved == false && dataService.isValid(self.summary) == false)
+            {
+                self.error = "Clinical-Summary is mandatory";
+            }
+            else
+            {
+                self.approved = !self.approved;
+                dataService.summaryApproved = self.approved;
+            }
+        }
 
         self.$onInit = function ()
         {
@@ -18,6 +34,13 @@
             },
             function (newVal, oldVal)
             {
+                self.error = "";
+                if (oldVal != self.summary || dataService.isValid(self.summary) == false)
+                {
+                    console.log('setting approved to false');
+                    self.approved = false;
+                    dataService.summaryApproved = false;
+                }
                 dataService.summary = newVal;
             });
         }
@@ -31,7 +54,7 @@
     app.component('clinicalSummary', {
         templateUrl: function ()
         {
-            return "./src/js/app/clinicalSummary/clinicalSummary.html";
+            return "./src/js/app/clinicalSummary/clinicalSummary.html?v=1";
         },
         controller: clinicalSummaryController,
     });

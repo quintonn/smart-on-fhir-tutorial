@@ -22,7 +22,7 @@
 
                     <a class="float-md-right btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
                         <i class="fas fa-check" ng-if="item.selected == true"></i>
-                        <i class="fas fa-times" ng-if="item.selected == false"></i>
+                        <i class="fas fa-times" ng-if="item.selected != true"></i>
 
                         <!--<input type="checkbox" class="float-md-left" id="customCheck1" ng-click="$event.stopPropagation();" />-->
                     </a>

@@ -17,8 +17,9 @@
             </a>
             <a class="nav-link" id="v-pills-summary-tab" data-toggle="pill" href="#v-pills-summary" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                 Clinical Summary
-                <span class="badge badge-danger" ng-if="$ctrl.validSummary == false">
-                    <i class="fas fa-times"></i>
+                <span class="badge" ng-class="{'badge-success': $ctrl.validSummary, 'badge-danger': $ctrl.validSummary == false}">
+                    <i class="fas fa-check" ng-if="$ctrl.validSummary == true"></i>
+                    <i class="fas fa-times" ng-if="$ctrl.validSummary == false"></i>
                 </span>
             </a>
             <a class="nav-link" id="v-pills-diagnosis-tab" data-toggle="pill" href="#v-pills-diagnosis" role="tab" aria-controls="v-pills-diagnosis" aria-selected="false">Diagnosis</a>

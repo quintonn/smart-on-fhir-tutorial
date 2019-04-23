@@ -19,7 +19,8 @@
             isValid: isValid,
             patientApproved: false,
             allApproved: allApproved,
-            allergiesApproved: false
+            allergiesApproved: false,
+            summaryApproved: false,
         };
 
         function allApproved()
