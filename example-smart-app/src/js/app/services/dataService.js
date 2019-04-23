@@ -11,8 +11,45 @@
 
         var service =
         {
-            getPatientData: getPatientData
+            getPatientData: getPatientData,
+            getAllergies: getAllergies
         };
+
+        function getAllergies()
+        {
+            if (self.ready == false && self.error == "")
+            {
+                return new Promise(function (res, rej)
+                {
+                    setTimeout(function ()
+                    {
+                        return getPatientData().then(function (resp)
+                        {
+                            res(resp);
+                        }).catch(rej);
+                    }, 100);
+                });
+            }
+            if (self.error != "")
+            {
+                return Promise.reject(self.error);
+            }
+
+            var allergies = smart.patient.api.fetchAll({ type: "AllergyIntolerance" });
+
+            return new Promise(function (res, rej)
+            {
+                $.when(allergies).fail(function (e)
+                {
+                    rej(e);
+                });
+
+                $.when(allergies).done(function (allergies)
+                {
+                    res(allergies);
+                });
+            });
+        }
 
         function getPatientData()
         {
@@ -61,7 +98,7 @@
         function onError(e)
         {
             console.log(e);
-            //self.error = e;
+            self.error = e;
             self.ready = false;
             onReady();
         }
