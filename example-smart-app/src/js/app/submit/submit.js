@@ -15,7 +15,11 @@
         {
             if (self.canSubmit == true)
             {
-
+                console.log('can submit');
+            }
+            else
+            {
+                console.log('cant submit');
             }
         }
 
@@ -23,17 +27,19 @@
         {
             $scope.$watch(function ()
             {
-                return dataService.summary;
+                return dataService.canSubmit;
             },
                 function (newVal, oldVal)
                 {
-                    if (dataService.isValid(dataService.error) == false && // check there are no errors in dataService
+                    console.log('x');
+                    if (//dataService.isValid(dataService.error) == false && // check there are no errors in dataService
                         dataService.isValid(dataService.summary) &&
-                        dataService.allApproved() == true)
+                        dataService.canSubmit == true)
                     {
+                        console.log('x');
                         self.canSubmit = true;
                     }
-                    else if (self.canSubmit == true)
+                    else
                     {
                         self.canSubmit = false;
                     }

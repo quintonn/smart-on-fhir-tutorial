@@ -17,6 +17,7 @@
         {
             self.approved = !self.approved;
             dataService.allergiesApproved = self.approved;
+            dataService.checkAllApproved();
         }
 
         self.allergies = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];

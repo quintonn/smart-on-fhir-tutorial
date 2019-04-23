@@ -23,6 +23,7 @@
         {
             self.approved = !self.approved;
             dataService.patientApproved = self.approved;
+            dataService.checkAllApproved();
         }
 
         function loadData()

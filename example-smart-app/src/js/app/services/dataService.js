@@ -18,15 +18,19 @@
             error: "",
             isValid: isValid,
             patientApproved: false,
-            allApproved: allApproved,
+            checkAllApproved: checkAllApproved,
             allergiesApproved: false,
             summaryApproved: false,
+            canSubmit: false,
         };
 
-        function allApproved()
+        function checkAllApproved()
         {
-            return service.patientApproved &&
-                service.allergiesApproved;
+            service.canSubmit = service.patientApproved &&
+                service.allergiesApproved &&
+                service.summaryApproved;
+
+            return service.canSubmit;
         }
 
         function isValid(value)
