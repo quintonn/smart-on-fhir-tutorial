@@ -35,7 +35,7 @@
                 return Promise.reject(self.error);
             }
 
-            var allergies = smart.patient.api.fetchAll({ type: "AllergyIntolerance" });
+            var allergies = self.smart.patient.api.fetchAll({ type: "AllergyIntolerance" });
 
             return new Promise(function (res, rej)
             {
