@@ -29,11 +29,13 @@
             approveSection: approveSection
         };
 
-        function getDischargeSummary(patient, user, encounter)
+        function getDischargeSummary(patient, user, encounter, fhirServer, token)
         {
             var userParts = user.split("/");
             user = userParts[userParts.length - 1];
             var url = "https://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
+            url += "&fhirServer=" + encodeURIComponent(fhirServer);
+            url += "&token=" + token;
             console.log(url);
 
             $.ajax({
@@ -231,7 +233,7 @@
                 console.log('************');
                 console.log(smart.tokenResponse);
                 service.encounterId = smart.tokenResponse.encounter;
-                getDischargeSummary(smart.tokenResponse.patient, smart.userId, smart.tokenResponse.encounter);
+                getDischargeSummary(smart.tokenResponse.patient, smart.userId, smart.tokenResponse.encounter, smart.server.serviceUrl, smart.tokenResponse.access_token);
                 console.log('************');
             }
             catch (err)
