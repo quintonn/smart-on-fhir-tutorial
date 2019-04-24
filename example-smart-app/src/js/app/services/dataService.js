@@ -240,6 +240,7 @@
             headers: {
                 "Accept": "application/json",
             },
+            crossDomain: true,
             success: function ()
             {
                 console.log('GET success');
