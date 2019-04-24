@@ -33,7 +33,7 @@
             item.selected = !item.selected;
         }
 
-        self.getMedications = function ()
+        self.getData = function ()
         {
             return dataService.medications;
         }

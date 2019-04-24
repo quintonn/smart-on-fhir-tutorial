@@ -15,7 +15,7 @@
 
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
-            <div class="card" ng-repeat="item in $ctrl.getAllergies()">
+            <div class="card" ng-repeat="item in $ctrl.getData()">
                 <div class="btn btn-primary" type="button" ng-click="$ctrl.expand(item)">
 
                     {{item.substance.coding[0].display}}

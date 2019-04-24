@@ -33,7 +33,7 @@
             item.selected = !item.selected;
         }
 
-        self.getAllergies = function ()
+        self.getData = function ()
         {
             return dataService.allergies;
         }

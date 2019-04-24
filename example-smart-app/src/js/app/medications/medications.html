@@ -15,10 +15,10 @@
 
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
-            <div class="card" ng-repeat="item in $ctrl.getAllergies()">
+            <div class="card" ng-repeat="item in $ctrl.getData()">
                 <div class="btn btn-primary" type="button" ng-click="$ctrl.expand(item)">
 
-                    {{item.substance.coding[0].display}}
+                    {{item.medicationCodeableConcept.text}}
 
                     <a class="float-md-right btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
                         <i class="fas fa-check" ng-if="item.selected == true"></i>
@@ -30,14 +30,16 @@
                 <div ng-if="item.expanded == true">
                     <div class="card-body">
                         <dl class="row">
-                            <dt class="col-sm-6">Substance</dt>
-                            <dd class="col-sm-6">{{item.substance.coding[0].display}}</dd>
+                            <dt class="col-sm-6">Medication</dt>
+                            <dd class="col-sm-6">{{item.medicationCodeableConcept.text}}</dd>
+                            <dt class="col-sm-6">Dosage</dt>
+                            <dd class="col-sm-6">{{item.dosage[0].text}}</dd>
+                            <dt class="col-sm-6">Start</dt>
+                            <dd class="col-sm-6">{{item.effectivePeriod.start}}</dd>
+                            <dt class="col-sm-6">End</dt>
+                            <dd class="col-sm-6">{{item.effectivePeriod.end}}</dd>
                             <dt class="col-sm-6">Status</dt>
                             <dd class="col-sm-6">{{item.status}}</dd>
-                            <dt class="col-sm-6">Category</dt>
-                            <dd class="col-sm-6">{{item.category}}</dd>
-                            <dt class="col-sm-6">Criticality</dt>
-                            <dd class="col-sm-6">{{item.criticality}}</dd>
                         </dl>
                     </div>
                 </div>
