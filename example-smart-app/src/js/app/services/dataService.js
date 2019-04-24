@@ -90,12 +90,10 @@
                             {
                                 self.data[entry.resource.resourceType] = [];
                             }
-                            else
-                            {
-                                console.log('adding ' + entry.resource.resourceType + ' to data');
-                                console.log(entry.resource);
-                                self.data[entry.resource.resourceType].push(entry.resource);
-                            }
+
+                            console.log('adding ' + entry.resource.resourceType + ' to data');
+                            console.log(entry.resource);
+                            self.data[entry.resource.resourceType].push(entry.resource);
                         }
                     }
                 }
