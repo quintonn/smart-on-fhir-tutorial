@@ -175,7 +175,17 @@
             self.smart = smart;
             self.ready = true;
 
-            console.log(smart.tokenResponse);
+            console.log(smart);
+            try
+            {
+                console.log('************');
+                console.log(smart.tokenResponse);
+                console.log('************');
+            }
+            catch (err)
+            {
+                console.log(err);
+            }
 
             console.log(window.location.href);
             //$('#loading').hide();
@@ -206,11 +216,14 @@
             console.log(err);
         }
         console.log(window.location.href);
+
+        FHIR.oauth2.ready(onReady, onError);
+
         getAuthToken();
-        setTimeout(function ()
-        {
-            FHIR.oauth2.ready(onReady, onError);
-        }, 3000);
+        //setTimeout(function ()
+        //{
+        //    FHIR.oauth2.ready(onReady, onError);
+        //}, 3000);
 
         return service;
     }
