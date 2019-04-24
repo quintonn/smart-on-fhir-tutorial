@@ -160,7 +160,7 @@
                 return Promise.reject(service.error);
             }
 
-            return self.patientData;
+            return Promise.resolve(self.patientData);
 
             //var patient = self.smart.patient.read();
 
