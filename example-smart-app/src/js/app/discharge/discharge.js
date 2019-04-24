@@ -24,7 +24,7 @@
             self.activeMenu = menu.id;
         }
 
-        self.fhirMessage = "";
+        self.fhirMessage = { name: 'test' };
 
         self.isValid = function(menu)
         {
@@ -53,6 +53,8 @@
             },
                 function (newVal, oldVal)
                 {
+                    console.log('setting fhir message to');
+                    console.log(newVal);
                     self.fhirMessage = newVal;
                 });
         }

@@ -17,7 +17,7 @@
             getMedications: getMedications,
             allergies: [],
             patientData: {},
-            fhirMessage: {},
+            fhirMessage: {name: 'testx'},
             medications: [],
             summary: "",
             error: "",
