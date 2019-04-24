@@ -55,7 +55,7 @@
                 {
                     console.log('setting fhir message to');
                     console.log(newVal);
-                    self.fhirMessage = newVal;
+                    self.fhirMessage = JSON.stringify(newVal, null, 2);
                 });
         }
     }
