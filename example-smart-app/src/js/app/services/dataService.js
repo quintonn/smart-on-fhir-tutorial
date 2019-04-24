@@ -2,12 +2,13 @@
 {
     'use strict';
 
+    var dischargeReady = false;
+
     function dataService()
     {
         var self = this;
         self.smart = null;
         self.ready = false;
-        self.ready2 = false;
 
         self.patientData = {};
 
@@ -140,8 +141,8 @@
 
         function getPatientData()
         {
-            console.log('getting patient data. read2 = ' + self.ready2);
-            if (self.ready2 == false && service.error == "")
+            console.log('getting patient data. dischargeReady = ' + dischargeReady);
+            if (dischargeReady == false && service.error == "")
             {
                 return new Promise(function (res, rej)
                 {
@@ -263,9 +264,8 @@
                     self.patientData = entry.resource;
                 }
             }
-            console.log('setting ready2 to true');
-            self.ready2 = true;
-            console.log(self.ready2);
+            console.log('setting dischargeReady to true');
+            dischargeReady = true;
 
         }).fail(function (jqXHR, textStatus, errorThrown)
         {
