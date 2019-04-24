@@ -18,7 +18,9 @@
                 <medications ng-if="item.id == 'medications'"></medications>
                 <clinical-summary ng-if="item.id == 'summary'"></clinical-summary>
                 <div ng-if="item.id == 'diagnosis'">{{item.name}}</div>
-                <div ng-if="item.id == 'gp'">{{item.name}}</div>
+                <div ng-if="item.id == 'gp'">
+                    <gp></gp>
+                </div>
             </div>
         </div>
     </div>
