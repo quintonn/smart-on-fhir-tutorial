@@ -10,6 +10,7 @@
         self.loading = false;
         self.ready = false;
         self.error = "";
+        self.data = [];
 
         self.approved = false;
 
@@ -31,17 +32,13 @@
             item.selected = !item.selected;
         }
 
-        self.getData = function ()
-        {
-            return dataService.allergies;
-        }
-
         function loadData()
         {
             self.loading = true;
-            dataService.getAllergies().then(function (data)
+            dataService.getData('AllergyIntolerance').then(function (data)
             {
                 console.log(data);
+                self.data = data;
                 self.ready = true;
             }).catch(function (err)
             {

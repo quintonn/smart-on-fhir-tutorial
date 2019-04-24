@@ -77,7 +77,21 @@
                     var entry = resp.entry[i];
                     if (typeof entry.resource != 'undefined' && entry.resource != null)
                     {
-                        self.data[entry.resource.resourceType] = entry.resource;
+                        if (entry.resource.resourceType == "List")
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if (self.data[entry.resource.resourceType] == null)
+                            {
+                                self.data[entry.resource.resourceType] = [];// entry.resource;
+                            }
+                            else
+                            {
+                                self.data[entry.resource.resourceType].push(entry.resource);
+                            }
+                        }
                     }
                 }
                 service.fhirMessage = resp;

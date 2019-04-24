@@ -39,7 +39,7 @@
         function loadData()
         {
             self.loading = true;
-            dataService.getMedications().then(function (data)
+            dataService.getData('MedicationStatement').then(function (data)
             {
                 console.log(data);
                 self.ready = true;

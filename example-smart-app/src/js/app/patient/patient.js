@@ -33,11 +33,12 @@
             dataService.getData('Patient').then(function (data)
             {
                 console.log(data);
+                data = data[0];
                 self.gender = data.gender;
                 self.firstName = data.name[0].given.join(' ');
                 self.lastName = data.name[0].family;//.join(' ');
                 self.birthDate = data.birthDate;
-                self.address = data.address;
+                self.address = data.address[0].line.join('\n') + "\n" + data.address[0].city + '\n' + data.address[0].postalCode;
 
                 self.ready = true;
             }).catch(function (err)
@@ -47,6 +48,7 @@
             }).then(function ()
             {
                 self.loading = false;
+
                 $scope.$apply();
             });
         }
@@ -61,7 +63,7 @@
     app.component('patient', {
         templateUrl: function ()
         {
-            return "./src/js/app/patient/patient.html";
+            return "./src/js/app/patient/patient.html?v=2";
         },
         controller: PatientController,
     });

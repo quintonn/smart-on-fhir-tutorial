@@ -11,14 +11,26 @@
     </div>
 
     <div class="card-body" ng-if="$ctrl.ready == true">
-        <dl class="row">
-            <dt class="col-sm-6">First Name</dt>
-            <dd class="col-sm-6">{{$ctrl.firstName}}</dd>
-            <dt class="col-sm-6">Last Name</dt>
-            <dd class="col-sm-6">{{$ctrl.lastName}}</dd>
-            <dt class="col-sm-6">Gender</dt>
-            <dd class="col-sm-6">{{$ctrl.gender}}</dd>
-        </dl>
+        <div class="row">
+            <div class="col-sm-6 font-weight-bold">First Name:</div>
+            <div class="col-sm-6">{{$ctrl.firstName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 font-weight-bold">Last Name:</div>
+            <div class="col-sm-6">{{$ctrl.lastName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 font-weight-bold">Gender:</div>
+            <div class="col-sm-6">{{$ctrl.gender}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 font-weight-bold">Birth Date:</div>
+            <div class="col-sm-6">{{$ctrl.birthDate}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 font-weight-bold">Address:</div>
+            <div class="col-sm-6">{{$ctrl.address}}</div>
+        </div>
     </div>
     <div class="card-body" ng-if="$ctrl.error != ''">
         <div class="alert alert-danger" role="alert">

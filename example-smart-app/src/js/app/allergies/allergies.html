@@ -15,7 +15,7 @@
 
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
-            <div class="card" ng-repeat="item in $ctrl.getData()">
+            <div class="card" ng-repeat="item in $ctrl.data">
                 <div class="btn btn-primary" type="button" ng-click="$ctrl.expand(item)">
 
                     {{item.substance.coding[0].display}}
@@ -29,16 +29,22 @@
                 </div>
                 <div ng-if="item.expanded == true">
                     <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-6">Substance</dt>
-                            <dd class="col-sm-6">{{item.substance.coding[0].display}}</dd>
-                            <dt class="col-sm-6">Status</dt>
-                            <dd class="col-sm-6">{{item.status}}</dd>
-                            <dt class="col-sm-6">Category</dt>
-                            <dd class="col-sm-6">{{item.category}}</dd>
-                            <dt class="col-sm-6">Criticality</dt>
-                            <dd class="col-sm-6">{{item.criticality}}</dd>
-                        </dl>
+                        <div class="row">
+                            <div class="col-sm-6 font-weight-bold">Substance:</div>
+                            <div class="col-sm-6">{{item.code.coding[0].display}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 font-weight-bold">Status:</div>
+                            <div class="col-sm-6">{{item.clinicalStatus}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 font-weight-bold">Category:</div>
+                            <div class="col-sm-6">{{item.category[0]}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 font-weight-bold">Criticality:</div>
+                            <div class="col-sm-6">{{item.criticality}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
