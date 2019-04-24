@@ -3,14 +3,13 @@
     'use strict';
 
     var dischargeReady = false;
+    var patientData = {};
 
     function dataService()
     {
         var self = this;
         self.smart = null;
         self.ready = false;
-
-        self.patientData = {};
 
         var service =
         {
@@ -160,7 +159,7 @@
                 return Promise.reject(service.error);
             }
 
-            return Promise.resolve(self.patientData);
+            return Promise.resolve(patientData);
 
             //var patient = self.smart.patient.read();
 
@@ -261,7 +260,9 @@
                 var entry = resp.entry[i];
                 if (entry.resource.resourceType == "Patient")
                 {
-                    self.patientData = entry.resource;
+                    patientData = entry.resource;
+                    console.log('setting patient data to');
+                    console.log(patientData);
                 }
             }
             console.log('setting dischargeReady to true');
