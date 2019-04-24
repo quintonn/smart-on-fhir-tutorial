@@ -21,7 +21,7 @@
             dataService.approveSection("medications", self.approved);
         }
 
-        self.medications = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];
+        //self.medications = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];
 
         self.expand = function (item)
         {
@@ -35,6 +35,8 @@
 
         self.getData = function ()
         {
+            console.log('2. data service medications:');
+            console.log(dataService.medications);
             return dataService.medications;
         }
 
@@ -44,8 +46,10 @@
             dataService.getMedications().then(function (data)
             {
                 console.log(data);
-                self.medications = data;
+                //self.medications = data;
                 self.ready = true;
+                console.log('1. data service medications:');
+                console.log(dataService.medications);
             }).catch(function (err)
             {
                 console.log(err);
