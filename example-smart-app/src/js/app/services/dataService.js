@@ -140,6 +140,7 @@
 
         function getPatientData()
         {
+            console.log('getting patient data. read2 = ' + self.ready2);
             if (self.ready2 == false && service.error == "")
             {
                 return new Promise(function (res, rej)
@@ -150,7 +151,7 @@
                         {
                             res(resp);
                         }).catch(rej);
-                    }, 100);
+                    }, 1000);
                 });
             }
             if (service.error != "")
@@ -262,8 +263,9 @@
                     self.patientData = entry.resource;
                 }
             }
-
+            console.log('setting ready2 to true');
             self.ready2 = true;
+            console.log(self.ready2);
 
         }).fail(function (jqXHR, textStatus, errorThrown)
         {
