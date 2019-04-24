@@ -17,6 +17,7 @@
             medications: [],
             summary: "",
             error: "",
+            encounterId: '',
             isValid: isValid,            
             checkAllApproved: checkAllApproved,
             canSubmit: false,
@@ -180,6 +181,8 @@
             {
                 console.log('************');
                 console.log(smart.tokenResponse);
+                service.encounterId = smart.tokenResponse.encounter;
+                getDischargeSummary(smart.tokenResponse.patient, smart.userId, smart.tokenResponse.encounter);
                 console.log('************');
             }
             catch (err)
@@ -219,13 +222,35 @@
 
         FHIR.oauth2.ready(onReady, onError);
 
-        getAuthToken();
-        //setTimeout(function ()
-        //{
-        //    FHIR.oauth2.ready(onReady, onError);
-        //}, 3000);
+        //getAuthToken();
 
         return service;
+    }
+
+    function getDischargeSummary(patient, user, encounter)
+    {
+        var userParts = user.split("/");
+        user = userParts[userParts.length - 1];
+        var url = "http://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
+        console.log(url);
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            headers: {
+                "Accept": "application/json",
+            },
+            success: function ()
+            {
+                console.log('GET success');
+            },
+        }).done(function (resp)
+        {
+            console.log('done', resp);
+        }).fail(function (jqXHR, textStatus, errorThrown)
+        {
+            console.log('fail', jqXHR, textStatus, errorThrown);
+        });
     }
 
     function getAuthToken()
