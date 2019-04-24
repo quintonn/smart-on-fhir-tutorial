@@ -9,6 +9,7 @@
         var self = this;
         self.smart = null;
         self.ready = false;
+        self.data = {};
 
         var service =
         {
@@ -16,7 +17,6 @@
             getAllergies: getAllergies,
             getMedications: getMedications,
             allergies: [],
-            data: {},
             fhirMessage: null,
             medications: [],
             summary: "",
