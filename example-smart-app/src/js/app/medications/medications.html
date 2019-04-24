@@ -20,7 +20,7 @@
 
                     {{item.medicationCodeableConcept.text}}
 
-                    <a class="float-md-right btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
+                    <a class="float-md-left btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
                         <i class="fas fa-check" ng-if="item.selected == true"></i>
                         <i class="fas fa-times" ng-if="item.selected != true"></i>
 

@@ -203,6 +203,8 @@
             console.log(err);
         }
 
+        console.log(window.location);
+        console.log(window.location.href);
         FHIR.oauth2.ready(onReady, onError);
 
         return service;
