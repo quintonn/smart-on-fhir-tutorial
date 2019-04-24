@@ -12,6 +12,7 @@
 
         var service =
         {
+            getData: getData,
             getAllergies: getAllergies,
             getMedications: getMedications,
             allergies: [],
