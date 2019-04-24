@@ -46,7 +46,7 @@
                 {
                     console.log(newVal);
                 });
-
+            console.log('xqqq');
             $scope.$watch(function ()
             {
                 return dataService.fhirMessage;

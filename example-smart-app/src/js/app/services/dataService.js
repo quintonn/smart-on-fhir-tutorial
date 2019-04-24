@@ -17,7 +17,7 @@
             getMedications: getMedications,
             allergies: [],
             patientData: {},
-            fhirMessage: {name: 'testx'},
+            fhirMessage: null,
             medications: [],
             summary: "",
             error: "",
@@ -61,7 +61,7 @@
                         console.log(self.patientData);
                     }
                 }
-                self.fhirMessage = resp;
+                service.fhirMessage = resp;
                 console.log('setting dischargeReady to true');
                 dischargeReady = true;
 
