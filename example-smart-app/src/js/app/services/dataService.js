@@ -224,7 +224,7 @@
         {
             grant_type: "authorization_code",
             client_id: "6e8b9e5b-aff8-4340-940b-652f18defd7e",
-            redirect_uri: "https://quintonn.github.io/smart-on-fhir-tutorial/example-smart-app/"
+            redirect_uri: "https://quintonn.github.io/smart-on-fhir-tutorial/example-smart-app/",
             code: params.code,
             state: params.state
         };
