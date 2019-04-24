@@ -12,23 +12,41 @@
         {
             getPatientData: getPatientData,
             getAllergies: getAllergies,
+            getMedications: getMedications,
             allergies: [],
-            test: "",
+            medications: [],
             summary: "",
             error: "",
-            isValid: isValid,
-            patientApproved: false,
+            isValid: isValid,            
             checkAllApproved: checkAllApproved,
-            allergiesApproved: false,
-            summaryApproved: false,
             canSubmit: false,
+            sectionApproved: [],
+            approveSection: approveSection
         };
+
+        function approveSection(section, approve)
+        {
+            if (approve == true && service.sectionApproved.indexOf(section) == -1)
+            {
+                service.sectionApproved.push(section);
+                service.sectionApproved = service.sectionApproved.filter(function (value, index, arr)
+                {
+                    return true;
+                });
+            }
+            else if (approve == false && service.sectionApproved.indexOf(section) > -1)
+            {
+                service.sectionApproved = service.sectionApproved.filter(function (value, index, arr)
+                {
+
+                    return value != section;
+                });
+            }
+        }
 
         function checkAllApproved()
         {
-            service.canSubmit = service.patientApproved &&
-                service.allergiesApproved &&
-                service.summaryApproved;
+            service.canSubmit = approveSection.length >= 2;
 
             return service.canSubmit;
         }
@@ -44,15 +62,13 @@
 
         function getAllergies()
         {
-            service.test = "hello";
-            
             if (self.ready == false && service.error == "")
             {
                 return new Promise(function (res, rej)
                 {
                     setTimeout(function ()
                     {
-                        return getPatientData().then(function (resp)
+                        return getAllergies().then(function (resp)
                         {
                             res(resp);
                         }).catch(rej);
@@ -77,6 +93,43 @@
                 {
                     service.allergies = allergies;
                     res(allergies);
+                });
+            });
+        }
+
+        function getMedications()
+        {
+            if (self.ready == false && service.error == "")
+            {
+                return new Promise(function (res, rej)
+                {
+                    setTimeout(function ()
+                    {
+                        return getMedications().then(function (resp)
+                        {
+                            res(resp);
+                        }).catch(rej);
+                    }, 100);
+                });
+            }
+            if (service.error != "")
+            {
+                return Promise.reject(service.error);
+            }
+
+            var medications = self.smart.patient.api.fetchAll({ type: "MedicationStatement" });
+
+            return new Promise(function (res, rej)
+            {
+                $.when(medications).fail(function (e)
+                {
+                    rej(e);
+                });
+
+                $.when(medications).done(function (medications)
+                {
+                    service.medications = medications;
+                    res(medications);
                 });
             });
         }

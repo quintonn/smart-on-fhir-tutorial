@@ -16,8 +16,9 @@
         self.approve = function ()
         {
             self.approved = !self.approved;
-            dataService.allergiesApproved = self.approved;
             dataService.checkAllApproved();
+            
+            dataService.approveSection("allergies", self.approved);
         }
 
         self.allergies = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];

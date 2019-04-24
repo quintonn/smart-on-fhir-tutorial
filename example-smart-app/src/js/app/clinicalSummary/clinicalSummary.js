@@ -22,7 +22,7 @@
             else
             {
                 self.approved = !self.approved;
-                dataService.summaryApproved = self.approved;
+                dataService.approveSection("summary", self.approved);
                 dataService.checkAllApproved();
             }
         }
@@ -40,7 +40,7 @@
                 {
                     console.log('setting approved to false');
                     self.approved = false;
-                    dataService.summaryApproved = false;
+                    dataService.approveSection("summary", false);
                     dataService.checkAllApproved();
                 }
                 dataService.summary = newVal;

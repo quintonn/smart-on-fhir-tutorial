@@ -2,20 +2,14 @@
 {
     'use strict';
 
-    PatientController.$inject = ['$scope', 'dataService'];
+    medicationsController.$inject = ['$scope', 'dataService'];
 
-    function PatientController($scope, dataService)
+    function medicationsController($scope, dataService)
     {
         var self = this;
         self.loading = false;
         self.ready = false;
         self.error = "";
-
-        self.firstName = "";
-        self.lastName = "";
-        self.gender = "";
-        self.birthDate = '';
-        self.deathDate = '';
 
         self.approved = false;
 
@@ -23,20 +17,34 @@
         {
             self.approved = !self.approved;
             dataService.checkAllApproved();
-            dataService.approveSection("patient", self.approved);
+            
+            dataService.approveSection("medications", self.approved);
+        }
+
+        self.medications = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];
+
+        self.expand = function (item)
+        {
+            item.expanded = !item.expanded;
+        }
+
+        self.select = function (item)
+        {
+            item.selected = !item.selected;
+        }
+
+        self.getMedications = function ()
+        {
+            return dataService.medications;
         }
 
         function loadData()
         {
             self.loading = true;
-            dataService.getPatientData().then(function (data)
+            dataService.getMedications().then(function (data)
             {
                 console.log(data);
-                self.gender = data.gender;
-                self.firstName = data.name[0].given.join(' ');
-                self.lastName = data.name[0].family.join(' ');
-                self.birthDate = data.birthDate;
-
+                self.medications = data;
                 self.ready = true;
             }).catch(function (err)
             {
@@ -56,12 +64,12 @@
         }, 1000);
     }
 
-    app.component('patient', {
+    app.component('medications', {
         templateUrl: function ()
         {
-            return "./src/js/app/patient/patient.html";
+            return "./src/js/app/medications/medications.html?v=1";
         },
-        controller: PatientController,
+        controller: medicationsController,
     });
 
 }) (angular.module(constants.appName));
