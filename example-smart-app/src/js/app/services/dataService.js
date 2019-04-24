@@ -231,7 +231,7 @@
     {
         var userParts = user.split("/");
         user = userParts[userParts.length - 1];
-        var url = "http://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
+        var url = "https://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
         console.log(url);
 
         $.ajax({
