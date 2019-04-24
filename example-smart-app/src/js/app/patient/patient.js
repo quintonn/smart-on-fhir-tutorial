@@ -34,8 +34,9 @@
                 console.log(data);
                 self.gender = data.gender;
                 self.firstName = data.name[0].given.join(' ');
-                self.lastName = data.name[0].family.join(' ');
+                self.lastName = data.name[0].family;//.join(' ');
                 self.birthDate = data.birthDate;
+                self.address = data.address;
 
                 self.ready = true;
             }).catch(function (err)

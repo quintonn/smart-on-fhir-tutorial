@@ -7,6 +7,9 @@
         var self = this;
         self.smart = null;
         self.ready = false;
+        self.ready2 = false;
+
+        self.patientData = {};
 
         var service =
         {
@@ -137,7 +140,7 @@
 
         function getPatientData()
         {
-            if (self.ready == false && service.error == "")
+            if (self.ready2 == false && service.error == "")
             {
                 return new Promise(function (res, rej)
                 {
@@ -155,20 +158,22 @@
                 return Promise.reject(service.error);
             }
 
-            var patient = self.smart.patient.read();
+            return self.patientData;
 
-            return new Promise(function (res, rej)
-            {
-                $.when(patient).fail(function (e)
-                {
-                    rej(e);
-                });
+            //var patient = self.smart.patient.read();
 
-                $.when(patient).done(function (patient)
-                {
-                    res(patient);
-                });
-            });
+            //return new Promise(function (res, rej)
+            //{
+            //    $.when(patient).fail(function (e)
+            //    {
+            //        rej(e);
+            //    });
+
+            //    $.when(patient).done(function (patient)
+            //    {
+            //        res(patient);
+            //    });
+            //});
         }
 
         function onReady(smart, a, b, c)
@@ -248,6 +253,18 @@
         }).done(function (resp)
         {
             console.log('done', resp);
+
+            for (var i = 0; i < resp.entry.length; i++)
+            {
+                var entry = resp.entry[i];
+                if (entry.resource.resourceType == "Patient")
+                {
+                    self.patientData = entry.resource;
+                }
+            }
+
+            self.ready2 = true;
+
         }).fail(function (jqXHR, textStatus, errorThrown)
         {
             console.log('fail', jqXHR, textStatus, errorThrown);
