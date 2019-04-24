@@ -21,8 +21,6 @@
             dataService.approveSection("allergies", self.approved);
         }
 
-        self.allergies = [{ selected: false, name: 'number one' }, { selected: false, name: 'number two' }];
-
         self.expand = function (item)
         {
             item.expanded = !item.expanded;
@@ -44,7 +42,6 @@
             dataService.getAllergies().then(function (data)
             {
                 console.log(data);
-                self.allergies = data;
                 self.ready = true;
             }).catch(function (err)
             {
