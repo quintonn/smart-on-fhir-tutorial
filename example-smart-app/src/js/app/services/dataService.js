@@ -170,10 +170,12 @@
             });
         }
 
-        function onReady(smart)
+        function onReady(smart, a, b, c)
         {
             self.smart = smart;
             self.ready = true;
+
+            console.log(smart, a, b, c);
 
             console.log(window.location.href);
             //$('#loading').hide();
@@ -205,7 +207,10 @@
         }
         console.log(window.location.href);
         getAuthToken();
-        FHIR.oauth2.ready(onReady, onError);
+        setTimeout(function ()
+        {
+            FHIR.oauth2.ready(onReady, onError);
+        }, 3000);
 
         return service;
     }
@@ -227,7 +232,7 @@
             type: "POST",
             url: "https://authorization.sandboxcerner.com/tenants/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/protocols/oauth2/profiles/smart-v1/token",
             headers: {
-                "Accept": "application/json; charset=utf-8",
+                "Accept": "application/json",
                 "Content-Type": "application/x-www-form-urlencoded",
             }   ,
             data: data,
