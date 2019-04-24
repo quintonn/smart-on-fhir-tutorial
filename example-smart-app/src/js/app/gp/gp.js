@@ -10,6 +10,7 @@
         self.loading = false;
         self.ready = false;
         self.error = "";
+        self.data = {};
 
         self.approved = false;
 
@@ -28,7 +29,7 @@
             {
                 console.log(data);
                 data = data[0];
-
+                self.data = data;
                 self.ready = true;
             }).catch(function (err)
             {
