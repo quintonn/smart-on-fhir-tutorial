@@ -175,6 +175,7 @@
             self.smart = smart;
             self.ready = true;
 
+            console.log(window.locaion.href);
             //$('#loading').hide();
         }
 
@@ -202,12 +203,71 @@
             console.log("ERROR");
             console.log(err);
         }
-
-        console.log(window.location);
-        console.log(window.location.href);
+        console.log(window.locaion.href);
+        getAuthToken();
         FHIR.oauth2.ready(onReady, onError);
 
         return service;
+    }
+
+    function getAuthToken()
+    {
+        console.log('getting auth token');
+        var params = getParams();
+
+        var data =
+        {
+            grant_type: "authorization_code",
+            client_id: "6e8b9e5b-aff8-4340-940b-652f18defd7e",
+            code: params.code,
+            state: params.state
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "https://authorization.sandboxcerner.com/tenants/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/protocols/oauth2/profiles/smart-v1/token",
+            data: data,
+            success: function ()
+            {
+                console.log('post success');
+            },
+            dataType: dataType
+        }).done(function (resp)
+        {
+            console.log('done', resp);
+        }).fail(function (jqXHR, textStatus, errorThrown)
+        {
+            console.log('fail', jqXHR, textStatus, errorThrown);
+        });
+    }
+
+    function getParams()
+    {
+        var url = window.location.href;
+        console.log(url);
+        var parts = url.split('?');
+        if (parts.length == 1)
+        {
+            console.log('no params in url');
+            console.log(parts);
+            return {};
+        }
+
+        var params = parts[1];
+        console.log(params);
+        params = params.split('&');
+        console.log(params);
+        var result = {};
+        params.forEach(function (item)
+        {
+            console.log(item);
+            var parts = item.split('=');
+            var key = parts[0];
+            var value = parts[1];
+            result[key] = value;
+        });
+        console.log('getParams result', result);
+        return result;
     }
 
     app.service('dataService', dataService);
