@@ -226,12 +226,15 @@
         $.ajax({
             type: "POST",
             url: "https://authorization.sandboxcerner.com/tenants/0b8a0111-e8e6-4c26-a91c-5069cbc6b1ca/protocols/oauth2/profiles/smart-v1/token",
+            headers: {
+                "Accept": "application/json; charset=utf-8",
+                "Content-Type": "application/x-www-form-urlencoded",
+            }   ,
             data: data,
             success: function ()
             {
                 console.log('post success');
             },
-            dataType: dataType
         }).done(function (resp)
         {
             console.log('done', resp);
