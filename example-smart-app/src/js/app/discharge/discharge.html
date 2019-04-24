@@ -3,7 +3,7 @@
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a ng-repeat="item in $ctrl.menu" class="nav-link" ng-class="{active : $ctrl.activeMenu == item.id}" href="#" ng-click="$ctrl.selectMenu(item)">
                 {{item.name}}
-                <span class="badge" ng-class="{'badge-success': $ctrl.isValid(item) == true, 'badge-danger': $ctrl.isValid(item) != true}">
+                <span class="badge float-right" ng-class="{'badge-success': $ctrl.isValid(item) == true, 'badge-danger': $ctrl.isValid(item) != true}">
                     <i class="fas fa-check" ng-if="$ctrl.isValid(item) == true"></i>
                     <i class="fas fa-times" ng-if="$ctrl.isValid(item) != true"></i>
                 </span>
