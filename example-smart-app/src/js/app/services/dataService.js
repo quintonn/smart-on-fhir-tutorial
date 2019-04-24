@@ -152,7 +152,7 @@
                         {
                             res(resp);
                         }).catch(rej);
-                    }, 1000);
+                    }, 100);
                 });
             }
             if (service.error != "")
