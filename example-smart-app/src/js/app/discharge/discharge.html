@@ -10,7 +10,7 @@
             </a>
         </div>
     </div>
-    <div class="col-9">
+    <div class="col-5">
         <div class="tab-content">
             <div ng-repeat="item in $ctrl.menu" class="fade tab-pane p2" ng-class="{active: $ctrl.activeMenu == item.id, show: $ctrl.activeMenu == item.id}">
                 <patient ng-if="item.id == 'patient'"></patient>
@@ -20,6 +20,18 @@
                 <div ng-if="item.id == 'diagnosis'">{{item.name}}</div>
                 <div ng-if="item.id == 'gp'">{{item.name}}</div>
             </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                FHIR Message
+            </div>
+            <div class="card-body">
+                <pre>{{$ctrl.fhirMessage}}</pre>
+            </div>
+            
         </div>
     </div>
 </div>

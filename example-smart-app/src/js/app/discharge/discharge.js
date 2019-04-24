@@ -24,6 +24,8 @@
             self.activeMenu = menu.id;
         }
 
+        self.fhirMessage = "";
+
         self.isValid = function(menu)
         {
             var result = dataService.sectionApproved.indexOf(menu.id) != -1;
@@ -42,8 +44,16 @@
             },
                 function (newVal, oldVal)
                 {
-                    //self.validAllergies = newVal;
                     console.log(newVal);
+                });
+
+            $scope.$watch(function ()
+            {
+                return dataService.fhirMessage;
+            },
+                function (newVal, oldVal)
+                {
+                    self.fhirMessage = newVal;
                 });
         }
     }

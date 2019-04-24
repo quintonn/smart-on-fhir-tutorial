@@ -3,7 +3,6 @@
     'use strict';
 
     var dischargeReady = false;
-    var patientData = {};
 
     function dataService()
     {
@@ -17,6 +16,8 @@
             getAllergies: getAllergies,
             getMedications: getMedications,
             allergies: [],
+            patientData: {},
+            fhirMessage: {},
             medications: [],
             summary: "",
             error: "",
@@ -27,6 +28,48 @@
             sectionApproved: [],
             approveSection: approveSection
         };
+
+        function getDischargeSummary(patient, user, encounter)
+        {
+            var userParts = user.split("/");
+            user = userParts[userParts.length - 1];
+            var url = "https://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
+            console.log(url);
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                headers: {
+                    "Accept": "application/json",
+                },
+                crossDomain: true,
+                success: function ()
+                {
+                    console.log('GET success');
+                },
+            }).done(function (resp)
+            {
+                console.log('done', resp);
+
+                for (var i = 0; i < resp.entry.length; i++)
+                {
+                    var entry = resp.entry[i];
+                    if (entry.resource.resourceType == "Patient")
+                    {
+                        self.patientData = entry.resource;
+                        console.log('setting patient data to');
+                        console.log(self.patientData);
+                    }
+                }
+                self.fhirMessage = resp;
+                console.log('setting dischargeReady to true');
+                dischargeReady = true;
+
+            }).fail(function (jqXHR, textStatus, errorThrown)
+            {
+                console.log('fail', jqXHR, textStatus, errorThrown);
+            });
+        }
 
         function approveSection(section, approve)
         {
@@ -159,7 +202,7 @@
                 return Promise.reject(service.error);
             }
 
-            return Promise.resolve(patientData);
+            return Promise.resolve(self.patientData);
 
             //var patient = self.smart.patient.read();
 
@@ -231,47 +274,6 @@
         //getAuthToken();
 
         return service;
-    }
-
-    function getDischargeSummary(patient, user, encounter)
-    {
-        var userParts = user.split("/");
-        user = userParts[userParts.length - 1];
-        var url = "https://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
-        console.log(url);
-
-        $.ajax({
-            type: "GET",
-            url: url,
-            headers: {
-                "Accept": "application/json",
-            },
-            crossDomain: true,
-            success: function ()
-            {
-                console.log('GET success');
-            },
-        }).done(function (resp)
-        {
-            console.log('done', resp);
-
-            for (var i = 0; i < resp.entry.length; i++)
-            {
-                var entry = resp.entry[i];
-                if (entry.resource.resourceType == "Patient")
-                {
-                    patientData = entry.resource;
-                    console.log('setting patient data to');
-                    console.log(patientData);
-                }
-            }
-            console.log('setting dischargeReady to true');
-            dischargeReady = true;
-
-        }).fail(function (jqXHR, textStatus, errorThrown)
-        {
-            console.log('fail', jqXHR, textStatus, errorThrown);
-        });
     }
 
     function getAuthToken()
