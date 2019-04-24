@@ -47,7 +47,9 @@
             {
                 return Promise.reject(service.error);
             }
-
+            console.log('data element:');
+            console.log(self.data);
+            console.log('getting data for key ' + key);
             return Promise.resolve(self.data[key]);
         }
 
@@ -83,12 +85,15 @@
                         }
                         else
                         {
+                            console.log('busy with ' + entry.resource.resourceType);
                             if (self.data[entry.resource.resourceType] == null)
                             {
-                                self.data[entry.resource.resourceType] = [];// entry.resource;
+                                self.data[entry.resource.resourceType] = [];
                             }
                             else
                             {
+                                console.log('adding ' + entry.resource.resourceType + ' to data');
+                                console.log(entry.resource);
                                 self.data[entry.resource.resourceType].push(entry.resource);
                             }
                         }

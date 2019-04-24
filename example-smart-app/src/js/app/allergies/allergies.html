@@ -18,7 +18,7 @@
             <div class="card" ng-repeat="item in $ctrl.data">
                 <div class="btn btn-primary" type="button" ng-click="$ctrl.expand(item)">
 
-                    {{item.substance.coding[0].display}}
+                    {{item.code.coding[0].display}}
 
                     <a class="float-md-left btn-dark btn" ng-click="$ctrl.select(item); $event.stopPropagation();">
                         <i class="fas fa-check" ng-if="item.selected == true"></i>
