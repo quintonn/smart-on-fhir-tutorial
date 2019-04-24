@@ -13,15 +13,15 @@
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="row">
             <div class="col-sm-6 font-weight-bold">Name:</div>
-            <div class="col-sm-6">{{$ctrl.name}}</div>
+            <div class="col-sm-6">{{$ctrl.data.name}}</div>
         </div>
         <div class="row">
             <div class="col-sm-6 font-weight-bold">Address:</div>
-            <div class="col-sm-6">{{$ctrl.address}}</div>
+            <div class="col-sm-6">{{$ctrl.data.address}}</div>
         </div>
         <div class="row">
             <div class="col-sm-6 font-weight-bold">Telecom:</div>
-            <div class="col-sm-6">{{$ctrl.telecom}}</div>
+            <div class="col-sm-6">{{$ctrl.data.telecom}}</div>
         </div>
     </div>
     <div class="card-body" ng-if="$ctrl.error != ''">
