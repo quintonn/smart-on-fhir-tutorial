@@ -75,7 +75,10 @@
                 for (var i = 0; i < resp.entry.length; i++)
                 {
                     var entry = resp.entry[i];
-                    self.data[entry.resource.resourceType] = entry.resource;
+                    if (typeof entry.resource != 'undefined' && entry.resource != null)
+                    {
+                        self.data[entry.resource.resourceType] = entry.resource;
+                    }
                 }
                 service.fhirMessage = resp;
                 dischargeReady = true;
