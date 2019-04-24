@@ -175,7 +175,7 @@
             self.smart = smart;
             self.ready = true;
 
-            console.log(window.locaion.href);
+            console.log(window.location.href);
             //$('#loading').hide();
         }
 
@@ -203,7 +203,7 @@
             console.log("ERROR");
             console.log(err);
         }
-        console.log(window.locaion.href);
+        console.log(window.location.href);
         getAuthToken();
         FHIR.oauth2.ready(onReady, onError);
 
