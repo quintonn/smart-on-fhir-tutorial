@@ -57,7 +57,7 @@
         {
             var userParts = user.split("/");
             user = userParts[userParts.length - 1];
-            var url = "https://18.222.191.253:29999/smartapp?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
+            var url = "http://18.222.191.253:29999/smartapp?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
             url += "&fhirServer=" + encodeURIComponent(fhirServer);
             
             url += "&token=" + token;
