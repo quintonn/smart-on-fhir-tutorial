@@ -29,7 +29,8 @@
         function loadData()
         {
             self.loading = true;
-            dataService.getPatientData().then(function (data)
+
+            dataService.getData('Patient').then(function (data)
             {
                 console.log(data);
                 self.gender = data.gender;

@@ -12,16 +12,14 @@
 
         var service =
         {
-            getPatientData: getPatientData,
             getAllergies: getAllergies,
             getMedications: getMedications,
             allergies: [],
-            patientData: {},
+            data: {},
             fhirMessage: null,
             medications: [],
             summary: "",
             error: "",
-            encounterId: '',
             isValid: isValid,            
             checkAllApproved: checkAllApproved,
             canSubmit: false,
@@ -29,14 +27,37 @@
             approveSection: approveSection
         };
 
+        function getData(key)
+        {
+            if (dischargeReady == false && service.error == "")
+            {
+                return new Promise(function (res, rej)
+                {
+                    setTimeout(function ()
+                    {
+                        return getData(key).then(function (resp)
+                        {
+                            res(resp);
+                        }).catch(rej);
+                    }, 100);
+                });
+            }
+            if (service.error != "")
+            {
+                return Promise.reject(service.error);
+            }
+
+            return Promise.resolve(self.data[key]);
+        }
+
         function getDischargeSummary(patient, user, encounter, fhirServer, token)
         {
             var userParts = user.split("/");
             user = userParts[userParts.length - 1];
             var url = "https://c3f33e7d.ngrok.io/smart/test?patientId=" + patient + "&encounterId=" + encounter + "&practitionerId=" + user;
             url += "&fhirServer=" + encodeURIComponent(fhirServer);
+            
             url += "&token=" + token;
-            console.log(url);
 
             $.ajax({
                 type: "GET",
@@ -45,26 +66,17 @@
                     "Accept": "application/json",
                 },
                 crossDomain: true,
-                success: function ()
-                {
-                    console.log('GET success');
-                },
             }).done(function (resp)
             {
-                console.log('done', resp);
+                console.log('got discharge response');
+                console.log(resp);
 
                 for (var i = 0; i < resp.entry.length; i++)
                 {
                     var entry = resp.entry[i];
-                    if (entry.resource.resourceType == "Patient")
-                    {
-                        self.patientData = entry.resource;
-                        console.log('setting patient data to');
-                        console.log(self.patientData);
-                    }
+                    self.data[entry.resource.resourceType] = entry.resource;
                 }
                 service.fhirMessage = resp;
-                console.log('setting dischargeReady to true');
                 dischargeReady = true;
 
             }).fail(function (jqXHR, textStatus, errorThrown)
@@ -183,45 +195,6 @@
             });
         }
 
-        function getPatientData()
-        {
-            console.log('getting patient data. dischargeReady = ' + dischargeReady);
-            if (dischargeReady == false && service.error == "")
-            {
-                return new Promise(function (res, rej)
-                {
-                    setTimeout(function ()
-                    {
-                        return getPatientData().then(function (resp)
-                        {
-                            res(resp);
-                        }).catch(rej);
-                    }, 100);
-                });
-            }
-            if (service.error != "")
-            {
-                return Promise.reject(service.error);
-            }
-
-            return Promise.resolve(self.patientData);
-
-            //var patient = self.smart.patient.read();
-
-            //return new Promise(function (res, rej)
-            //{
-            //    $.when(patient).fail(function (e)
-            //    {
-            //        rej(e);
-            //    });
-
-            //    $.when(patient).done(function (patient)
-            //    {
-            //        res(patient);
-            //    });
-            //});
-        }
-
         function onReady(smart, a, b, c)
         {
             self.smart = smart;
@@ -230,11 +203,7 @@
             console.log(smart);
             try
             {
-                console.log('************');
-                console.log(smart.tokenResponse);
-                service.encounterId = smart.tokenResponse.encounter;
                 getDischargeSummary(smart.tokenResponse.patient, smart.userId, smart.tokenResponse.encounter, smart.server.serviceUrl, smart.tokenResponse.access_token);
-                console.log('************');
             }
             catch (err)
             {
