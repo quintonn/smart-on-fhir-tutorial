@@ -13,6 +13,12 @@
         <p>Loading...</p>
     </div>
 
+    <div class="card-body" ng-if="$ctrl.getData().length == 0">
+        <div class="alert alert-dark" role="alert">
+            There are no allergy or adverse reactions for this patient.
+        </div>
+    </div>
+
     <div class="card-body" ng-if="$ctrl.ready == true">
         <div class="accordion" id="allergyAccordion">
             <div class="card" ng-repeat="item in $ctrl.data">

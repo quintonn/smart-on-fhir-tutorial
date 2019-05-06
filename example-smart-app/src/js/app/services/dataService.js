@@ -103,6 +103,7 @@
                     }
                 }
                 service.fhirMessage = resp;
+
                 dischargeReady = true;
 
             }).fail(function (jqXHR, textStatus, errorThrown)
