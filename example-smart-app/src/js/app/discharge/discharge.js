@@ -13,9 +13,24 @@
         self.menu.push({ id: "gp", name: "GP Practice" });
         self.menu.push({ id: "diagnosis", name: "Diagnoses" });
         self.menu.push({ id: "summary", name: "Clinical Summary" });
-
         self.menu.push({ id: "medications", name: "Medications & Medical Devices" });
         self.menu.push({ id: "allergies", name: "Allergies & Adverse Reactions" });
+        self.menu.push({ id: "admission", name: "Admission Details" });
+        self.menu.push({ id: "assessment", name: "Assessment Scales" });
+        self.menu.push({ id: "dischargeDetails", name: "Discharge Details" });
+        self.menu.push({ id: "distribution", name: "Distribution List" });
+        self.menu.push({ id: "requirements", name: "Individual Requirements" });
+        self.menu.push({ id: "advice", name: "Information & Advice Given" });
+        self.menu.push({ id: "investigation", name: "Investigation Results" });
+        self.menu.push({ id: "legal", name: "Legal Information" });
+        self.menu.push({ id: "research", name: "Participation in Research" });
+        self.menu.push({ id: "concerns", name: "Patient & Carer Concerns, Expectations & Wishes" });
+        self.menu.push({ id: "person", name: "Person Completing Record" });
+        self.menu.push({ id: "plan", name: "Plan & Requested Actions" });
+        self.menu.push({ id: "procedures", name: "Procedures" });
+        self.menu.push({ id: "referrer", name: "Referrer Details" });
+        self.menu.push({ id: "safety", name: "Safety Alerts" });
+        self.menu.push({ id: "social", name: "Social Context" });
         
         self.activeMenu = self.menu[0].id;
 
