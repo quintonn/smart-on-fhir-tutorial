@@ -1,4 +1,6 @@
-﻿(function (app)
+﻿import { setTimeout } from "timers";
+
+(function (app)
 {
     'use strict';
 
@@ -44,11 +46,17 @@
                     dataService.checkAllApproved();
                 }
                 dataService.summary = newVal;
-                console.log(dataService.fhirMessage.entry[0].resource.section[2]);
                 var tmp = dataService.fhirMessage;
-                tmp.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
-                dataService.fhirMessage = "";
-                dataService.fhirMessage = tmp;
+                if (tmp != null && tmp.entry != null && tmp.entry.length > 0)
+                {
+                    console.log(tmp.entry[0].resource.section[2]);
+                    tmp.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
+                    setTimeout(function ()
+                    {
+                        dataService.fhirMessage = "";
+                        dataService.fhirMessage = tmp;
+                    }, 50);
+                }
             });
         }
 
