@@ -40,7 +40,10 @@
                 console.log('************************');
                 console.log(data);
                 console.log('************************');
-                self.data = data;
+                if (typeof data != "undefined" && data != null)
+                {
+                    self.data = data;
+                }
                 self.ready = true;
             }).catch(function (err)
             {
