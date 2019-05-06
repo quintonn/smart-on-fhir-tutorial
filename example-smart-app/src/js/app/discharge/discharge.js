@@ -2,9 +2,9 @@
 {
     'use strict';
 
-    DataMenuController.$inject = ['dataService', '$scope'];
+    DataMenuController.$inject = ['dataService', '$scope', '$rootScope'];
 
-    function DataMenuController(dataService, $scope)
+    function DataMenuController(dataService, $scope, $rootScope)
     {
         var self = this;
 
@@ -61,6 +61,12 @@
                 {
                     console.log(newVal);
                 });
+
+            $rootScope.$on('fhirChange', function (a, b, c)
+            {
+                console.log('fhirChange event');
+                console.log(a, b, c);
+            });
             
             $scope.$watch(function ()
             {

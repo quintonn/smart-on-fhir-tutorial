@@ -2,9 +2,9 @@
 {
     'use strict';
 
-    clinicalSummaryController.$inject = ['dataService', '$scope'];
+    clinicalSummaryController.$inject = ['dataService', '$scope', '$rootScope'];
 
-    function clinicalSummaryController(dataService, $scope)
+    function clinicalSummaryController(dataService, $scope, $rootScope)
     {
         var self = this;
 
@@ -49,11 +49,12 @@
                 {
                     console.log(tmp.entry[0].resource.section[2]);
                     tmp.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
-                    setTimeout(function ()
-                    {
+                    
+                    
                         dataService.fhirMessage = "";
                         dataService.fhirMessage = tmp;
-                    }, 50);
+
+                    $rootScope.$emit('fhirChange', tmp);
                 }
             });
         }
