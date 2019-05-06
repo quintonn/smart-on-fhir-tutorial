@@ -44,10 +44,8 @@
                     dataService.checkAllApproved();
                 }
                 dataService.summary = newVal;
-                console.log(dataService.fhirMessage)
-                console.log(dataService.fhirMessage.entry);
-                console.log(dataService.fhirMessage.entry[0].resource);
-                console.log(dataService.fhirMessage.entry[0].resource.section);
+                console.log(dataService.fhirMessage.entry[0].resource.section[2]);
+                dataService.fhirMessage.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
             });
         }
 
