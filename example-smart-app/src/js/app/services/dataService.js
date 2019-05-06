@@ -93,6 +93,11 @@
 
                             console.log('adding ' + entry.resource.resourceType + ' to data');
                             console.log(entry.resource);
+                            if (entry.resource.resourceType == "AllergyIntolerance")
+                            {
+                                console.log('setting selected to true');
+                                entry.resource['selected'] = true;
+                            }
                             service.data[entry.resource.resourceType].push(entry.resource);
                         }
                     }

@@ -37,7 +37,9 @@
             self.loading = true;
             dataService.getData('AllergyIntolerance').then(function (data)
             {
+                console.log('************************');
                 console.log(data);
+                console.log('************************');
                 self.data = data;
                 self.ready = true;
             }).catch(function (err)
