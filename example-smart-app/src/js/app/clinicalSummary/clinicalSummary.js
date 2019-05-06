@@ -44,6 +44,10 @@
                     dataService.checkAllApproved();
                 }
                 dataService.summary = newVal;
+                console.log(dataService.data)
+                console.log(dataService.data.entry);
+                console.log(dataService.data.entry[0].resource);
+                console.log(dataService.data.entry[0].resource.section);
             });
         }
 
@@ -56,7 +60,7 @@
     app.component('clinicalSummary', {
         templateUrl: function ()
         {
-            return "./src/js/app/clinicalSummary/clinicalSummary.html?v=1";
+            return "./src/js/app/clinicalSummary/clinicalSummary.html?v=2";
         },
         controller: clinicalSummaryController,
     });

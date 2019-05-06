@@ -9,13 +9,13 @@
         var self = this;
         self.smart = null;
         self.ready = false;
-        self.data = {};
 
         var service =
         {
+            data: {},
             getData: getData,
-            getAllergies: getAllergies,
-            getMedications: getMedications,
+            //getAllergies: getAllergies,
+            //getMedications: getMedications,
             allergies: [],
             fhirMessage: null,
             medications: [],
@@ -48,9 +48,9 @@
                 return Promise.reject(service.error);
             }
             console.log('data element:');
-            console.log(self.data);
+            console.log(service.data);
             console.log('getting data for key ' + key);
-            return Promise.resolve(self.data[key]);
+            return Promise.resolve(service.data[key]);
         }
 
         function getDischargeSummary(patient, user, encounter, fhirServer, token)
@@ -86,14 +86,14 @@
                         else
                         {
                             console.log('busy with ' + entry.resource.resourceType);
-                            if (self.data[entry.resource.resourceType] == null)
+                            if (service.data[entry.resource.resourceType] == null)
                             {
-                                self.data[entry.resource.resourceType] = [];
+                                service.data[entry.resource.resourceType] = [];
                             }
 
                             console.log('adding ' + entry.resource.resourceType + ' to data');
                             console.log(entry.resource);
-                            self.data[entry.resource.resourceType].push(entry.resource);
+                            service.data[entry.resource.resourceType].push(entry.resource);
                         }
                     }
                 }
@@ -142,7 +142,7 @@
             return true;
         }
 
-        function getAllergies()
+        /*function getAllergies()
         {
             if (self.ready == false && service.error == "")
             {
@@ -214,7 +214,7 @@
                     res(medications);
                 });
             });
-        }
+        }*/
 
         function onReady(smart, a, b, c)
         {
