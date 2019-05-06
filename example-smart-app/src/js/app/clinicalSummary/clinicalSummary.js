@@ -47,6 +47,7 @@
                 console.log(dataService.fhirMessage.entry[0].resource.section[2]);
                 var tmp = dataService.fhirMessage;
                 tmp.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
+                dataService.fhirMessage = "";
                 dataService.fhirMessage = tmp;
             });
         }
