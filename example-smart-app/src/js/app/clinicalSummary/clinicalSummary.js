@@ -1,6 +1,4 @@
-﻿import { setTimeout } from "timers";
-
-(function (app)
+﻿(function (app)
 {
     'use strict';
 
