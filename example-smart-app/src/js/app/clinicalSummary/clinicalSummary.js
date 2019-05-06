@@ -44,10 +44,10 @@
                     dataService.checkAllApproved();
                 }
                 dataService.summary = newVal;
-                console.log(dataService.data)
-                console.log(dataService.data.entry);
-                console.log(dataService.data.entry[0].resource);
-                console.log(dataService.data.entry[0].resource.section);
+                console.log(dataService.fhirMessage)
+                console.log(dataService.fhirMessage.entry);
+                console.log(dataService.fhirMessage.entry[0].resource);
+                console.log(dataService.fhirMessage.entry[0].resource.section);
             });
         }
 
