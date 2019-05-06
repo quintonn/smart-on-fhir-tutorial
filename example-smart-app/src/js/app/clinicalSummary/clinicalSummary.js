@@ -49,10 +49,6 @@
                 {
                     console.log(tmp.entry[0].resource.section[2]);
                     tmp.entry[0].resource.section[2].text.div = "<div><table><tbody><tr><th>Clinical Summary</th></tr><tr><td><p>" + newVal + "</p></td></tr></tbody></table></div>";
-                    
-                    
-                        dataService.fhirMessage = "";
-                        dataService.fhirMessage = tmp;
 
                     $rootScope.$emit('fhirChange', tmp);
                 }

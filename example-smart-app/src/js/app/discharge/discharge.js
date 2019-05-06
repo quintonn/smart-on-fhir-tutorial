@@ -62,10 +62,10 @@
                     console.log(newVal);
                 });
 
-            $rootScope.$on('fhirChange', function (a, b, c)
+            $rootScope.$on('fhirChange', function (evt, fhirMessage)
             {
                 console.log('fhirChange event');
-                console.log(a, b, c);
+                self.fhirMessage = fhirMessage;
             });
             
             $scope.$watch(function ()
