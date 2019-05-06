@@ -64,20 +64,19 @@
 
             $rootScope.$on('fhirChange', function (evt, fhirMessage)
             {
-                console.log('fhirChange event');
-                self.fhirMessage = fhirMessage;
+                self.fhirMessage = JSON.stringify(fhirMessage, null, 2);
             });
             
-            $scope.$watch(function ()
-            {
-                return dataService.fhirMessage;
-            },
-                function (newVal, oldVal)
-                {
-                    console.log('setting fhir message to');
-                    console.log(newVal);
-                    self.fhirMessage = JSON.stringify(newVal, null, 2);
-                });
+            //$scope.$watch(function ()
+            //{
+            //    return dataService.fhirMessage;
+            //},
+            //    function (newVal, oldVal)
+            //    {
+            //        console.log('setting fhir message to');
+            //        console.log(newVal);
+            //        self.fhirMessage = JSON.stringify(newVal, null, 2);
+            //    });
         }
     }
 
